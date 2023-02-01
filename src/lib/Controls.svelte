@@ -22,9 +22,9 @@
 </script>
 
 <div class="controls">
-  <ControlsInput label="width" />
+  <!-- <ControlsInput label="width" />
   <ControlsInput label="height" />
-  <ControlsInput label="depth" />
+  <ControlsInput label="depth" /> -->
   <ControlsInput max={1} label="fogDensity" />
   <ControlsInput max={1} label="lightIntensity" />
   <button on:click={togglePlayPause}>{pauseButtonLabel}</button>
