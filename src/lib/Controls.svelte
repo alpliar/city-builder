@@ -24,7 +24,7 @@
   <!-- <ControlsInput label="width" />
   <ControlsInput label="height" />
   <ControlsInput label="depth" /> -->
-  <ControlsInput max={1} label="fogDensity" />
+  <ControlsInput min={0} max={0.3} step={0.01} label="fogDensity" />
   <ControlsInput max={1} label="lightIntensity" />
   <button on:click={togglePlayPause}>{pauseButtonLabel}</button>
 </div>
