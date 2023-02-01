@@ -7,7 +7,6 @@
   $: pauseButtonLabel = gameIsPaused ? "Resume" : "Pause";
 
   const unsubscribe = appStore.subscribe((state) => {
-    console.log(state.gameIsPaused);
     gameIsPaused = state.gameIsPaused;
   });
 

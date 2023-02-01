@@ -46,7 +46,7 @@
     {/each}
   {/each}
 
-  <SC.PerspectiveCamera position={[1, 1, 3]} />
+  <SC.PerspectiveCamera position={[-3, 3, 5]} />
 
   <SC.OrbitControls enableZoom enablePan maxPolarAngle={Math.PI * 0.51} />
   <SC.AmbientLight intensity={appState.controls.lightIntensity} />
