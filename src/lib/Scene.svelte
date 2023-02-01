@@ -8,39 +8,29 @@
   import Controls from "./Controls.svelte";
   import Plane from "./Plane.svelte";
 
-  let state: AppState;
+  let appState: AppState;
 
-  const unsubscribe = appStore.subscribe((value) => (state = value));
+  const unsubscribe = appStore.subscribe((state) => (appState = state));
   onDestroy(unsubscribe);
-
-  const smallBuilding = { color: 0x3eff00, height: 1 };
-  const mediumBuilding = { color: 0xff3e00, height: 2 };
-  const hugeBuilding = { color: 0x000000, height: 4 };
-
-  const grid = [
-    [null, mediumBuilding, smallBuilding, smallBuilding],
-    [hugeBuilding, smallBuilding, mediumBuilding],
-    [mediumBuilding, null, smallBuilding, null],
-  ];
 </script>
 
 <SC.Canvas
   antialias
   background={new THREE.Color("papayawhip")}
-  fog={new THREE.FogExp2("papayawhip", state.controls.fogDensity)}
+  fog={new THREE.FogExp2("papayawhip", appState.controls.fogDensity)}
   shadows
 >
-  {#each grid as row, iRow}
-    {#each row as construction, iTile}
-      {#if construction}
+  {#each appState.grid as row, iRow}
+    {#each row as tile, iTile}
+      {#if tile?.construction}
         <Building
           scale={[
-            state.controls.width,
-            construction.height || state.controls.height,
-            state.controls.depth,
+            appState.controls.width,
+            tile.construction.height || appState.controls.height,
+            appState.controls.depth,
           ]}
           position={[iTile, 0, iRow]}
-          color={construction.color}
+          color={tile.construction.color}
         />
       {/if}
     {/each}
@@ -49,7 +39,7 @@
   <SC.PerspectiveCamera position={[1, 1, 3]} />
 
   <SC.OrbitControls enableZoom enablePan maxPolarAngle={Math.PI * 0.51} />
-  <SC.AmbientLight intensity={state.controls.lightIntensity} />
+  <SC.AmbientLight intensity={appState.controls.lightIntensity} />
 
   <SC.DirectionalLight
     intensity={0.6}
@@ -57,7 +47,7 @@
     shadow={{ mapSize: [2048, 2048] }}
   />
 
-  <Plane height={state.controls.height} />
+  <Plane height={appState.controls.height} />
 </SC.Canvas>
 
 <Controls />

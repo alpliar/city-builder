@@ -1,3 +1,5 @@
+import type { Grid } from "./Grid.model";
+
 interface AppControls {
   width: number;
   height: number;
@@ -6,6 +8,7 @@ interface AppControls {
   fogDensity: number;
 }
 export interface AppState {
+  grid: Grid;
   gameIsPaused: boolean;
   gameHasStarted: boolean;
   controls: AppControls;
