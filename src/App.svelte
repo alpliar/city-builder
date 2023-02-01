@@ -1,6 +1,21 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
   import Scene from "./lib/Scene.svelte";
+  import { appStore } from "./stores";
   let gameHasStarted: boolean = false;
+
+  const unsubscribe = appStore.subscribe(
+    (state) => (gameHasStarted = state.gameHasStarted)
+  );
+
+  onDestroy(unsubscribe);
+
+  const handleClickNewGame = (): void => {
+    appStore.update((state) => ({
+      ...state,
+      gameHasStarted: true,
+    }));
+  };
 </script>
 
 <main>
@@ -11,9 +26,7 @@
 
     <div class="card">
       <div class="buttons">
-        <button class="new-game" on:click={() => (gameHasStarted = true)}
-          >New city</button
-        >
+        <button class="new-game" on:click={handleClickNewGame}>New city</button>
         <button disabled on:click={() => console.error("NOT_IMPLEMENTED")}>
           Load previous save
         </button>

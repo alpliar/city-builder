@@ -6,5 +6,7 @@ interface AppControls {
   fogDensity: number;
 }
 export interface AppState {
+  gameIsPaused: boolean;
+  gameHasStarted: boolean;
   controls: AppControls;
 }

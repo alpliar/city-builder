@@ -4,6 +4,8 @@ import type { AppState } from "./models/AppState.model";
 export const fogDensity = writable(0.1);
 
 export const appStore = writable<AppState>({
+  gameIsPaused: false,
+  gameHasStarted: false,
   controls: {
     depth: 1,
     height: 1,
