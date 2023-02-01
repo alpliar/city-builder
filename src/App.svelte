@@ -1,49 +1,79 @@
 <script lang="ts">
-  import svelteLogo from "./assets/svelte.svg";
-  import Counter from "./lib/Counter.svelte";
   import Scene from "./lib/Scene.svelte";
+  let gameHasStarted: boolean = false;
 </script>
 
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src="/vite.svg" class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+  {#if gameHasStarted}
+    <Scene />
+  {:else}
+    <h1>Welcome to city-builder !</h1>
 
-  <div class="card">
-    <Counter />
-  </div>
+    <div class="card">
+      <div class="buttons">
+        <button class="new-game" on:click={() => (gameHasStarted = true)}
+          >New city</button
+        >
+        <button disabled on:click={() => console.error("NOT_IMPLEMENTED")}>
+          Load previous save
+        </button>
+      </div>
+      <!-- <Counter /> -->
+      <p>
+        Check out <a
+          href="https://github.com/alpliar/city-builder"
+          target="_blank"
+          rel="noreferrer">city-builder source code on github</a
+        > !
+      </p>
+    </div>
 
-  <p>
-    Check out <a
-      href="https://github.com/sveltejs/kit#readme"
-      target="_blank"
-      rel="noreferrer">SvelteKit</a
-    >, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
-  <Scene />
+    <!-- <p class="read-the-docs">
+      Click on the Vite and Svelte logos to learn more
+    </p> -->
+  {/if}
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
+  h1 {
+    font-weight: bold;
+    font-size: "xx-large";
+  }
+  :global(body) {
+    background-image: linear-gradient(to bottom, papayawhip, burlywood);
+  }
+
+  .card {
+    background: white;
+    padding: 1em;
+    border-radius: 1em;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    max-width: 20em;
+    margin: auto;
+  }
+
+  button {
+    height: 4em;
+    font-size: 1.3em;
+    font-weight: bold;
+    filter: opacity(1);
+  }
+  button:hover {
+    filter: opacity(0.9);
+  }
+
+  .new-game {
+    color: white;
+    background-color: #cf4010;
     will-change: filter;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
+
+  /* .read-the-docs {
     color: #888;
-  }
+  } */
 </style>
