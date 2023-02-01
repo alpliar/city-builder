@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
-  import { controlsStore } from "../stores";
+  import { appStore } from "../stores";
 
   export let min: number = 0.1,
     max: number = 3,
@@ -9,8 +9,8 @@
 
   let value;
 
-  const unsubscribe = controlsStore.subscribe(
-    (controls) => (value = controls[label])
+  const unsubscribe = appStore.subscribe(
+    (state) => (value = state.controls[label])
   );
 
   onDestroy(unsubscribe);
@@ -18,9 +18,12 @@
   const handleInput = (event: Event): void => {
     const { value } = event.target as HTMLInputElement;
 
-    controlsStore.update((controls) => ({
-      ...controls,
-      [label]: Number(value),
+    appStore.update((state) => ({
+      ...state,
+      controls: {
+        ...state.controls,
+        [label]: Number(value),
+      },
     }));
   };
 </script>
