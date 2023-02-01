@@ -38,6 +38,7 @@
 <style>
   .controls {
     background-color: aliceblue;
+    border-radius: 0.5em;
     padding: 0.5em;
     position: fixed;
     top: 0.5em;
