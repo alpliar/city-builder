@@ -7,6 +7,7 @@
   import Building from "./Building.svelte";
   import Controls from "./Controls.svelte";
   import Plane from "./Plane.svelte";
+  import Tree from "./Tree.svelte";
 
   let appState: AppState;
 
@@ -31,6 +32,15 @@
           ]}
           position={[iTile, 0, iRow]}
           color={tile.construction.color}
+        />
+      {:else}
+        <Tree
+          scale={[
+            appState.controls.width,
+            appState.controls.height,
+            appState.controls.depth,
+          ]}
+          position={[iTile, 0, iRow]}
         />
       {/if}
     {/each}
