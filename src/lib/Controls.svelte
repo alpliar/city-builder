@@ -1,15 +1,19 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
   import { appStore } from "../stores";
+  import { Toggle } from "flowbite-svelte";
+
   import Button from "./Button.svelte";
   import ControlsInput from "./ControlsInput.svelte";
+  import type { AppState } from "../models/AppState.model";
 
-  let gameIsPaused: boolean;
-  $: pauseButtonIcon = gameIsPaused ? "▶️" : "⏸️";
-  $: pauseButtonLabel = gameIsPaused ? "Resume" : "Pause";
+  let appState: AppState;
+
+  // $: pauseButtonIcon = appState.gameIsPaused ? "▶️" : "⏸️";
+  $: pauseButtonLabel = appState.gameIsPaused ? "Resume" : "Pause";
 
   const unsubscribe = appStore.subscribe((state) => {
-    gameIsPaused = state.gameIsPaused;
+    appState = state;
   });
 
   onDestroy(unsubscribe);
@@ -20,12 +24,25 @@
       gameIsPaused: !state.gameIsPaused,
     }));
   };
+
+  const toggleDayNight = (): void => {
+    appStore.update((state) => ({
+      ...state,
+      dayNightCycle: !state.dayNightCycle,
+    }));
+  };
 </script>
 
 <div class="controls">
   <!-- <ControlsInput label="width" />
   <ControlsInput label="height" />
   <ControlsInput label="depth" /> -->
+  <Toggle
+    disabled
+    size="small"
+    checked={appState.dayNightCycle}
+    on:change={toggleDayNight}>Day-night cycle</Toggle
+  >
 
   <ControlsInput
     min={0}

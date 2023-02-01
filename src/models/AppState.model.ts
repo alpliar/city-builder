@@ -12,4 +12,5 @@ export interface AppState {
   gameIsPaused: boolean;
   gameHasStarted: boolean;
   controls: AppControls;
+  dayNightCycle: boolean;
 }

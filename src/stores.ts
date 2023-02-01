@@ -30,6 +30,7 @@ export const appStore = writable<AppState>({
   grid,
   gameIsPaused: false,
   gameHasStarted: false,
+  dayNightCycle: false,
   controls: {
     depth: 1,
     height: 1,
