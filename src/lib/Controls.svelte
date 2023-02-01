@@ -39,6 +39,7 @@
   .controls {
     background-color: aliceblue;
     border-radius: 0.5em;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 0.5em;
     position: fixed;
     top: 0.5em;
