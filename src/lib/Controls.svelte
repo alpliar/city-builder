@@ -38,9 +38,9 @@
 <style>
   .controls {
     background-color: aliceblue;
-    padding: 1em;
+    padding: 0.5em;
     position: fixed;
-    top: 0em;
-    left: 0em;
+    top: 0.5em;
+    left: 0.5em;
   }
 </style>
