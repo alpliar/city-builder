@@ -5,6 +5,7 @@
   export let min: number = 0.1,
     max: number = 3,
     step: number = 0.1,
+    attribute: string,
     label: string;
 
   let value;
@@ -22,7 +23,7 @@
       ...state,
       controls: {
         ...state.controls,
-        [label]: Number(value),
+        [attribute]: Number(value),
       },
     }));
   };

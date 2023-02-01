@@ -24,8 +24,14 @@
   <!-- <ControlsInput label="width" />
   <ControlsInput label="height" />
   <ControlsInput label="depth" /> -->
-  <ControlsInput min={0} max={0.3} step={0.01} label="fogDensity" />
-  <ControlsInput max={1} label="lightIntensity" />
+  <ControlsInput
+    min={0}
+    max={0.2}
+    step={0.01}
+    label="Fog density"
+    attribute="fogDensity"
+  />
+  <ControlsInput max={1} label="Light intensity" attribute="lightIntensity" />
   <button on:click={togglePlayPause}>{pauseButtonLabel}</button>
 </div>
 
@@ -33,10 +39,8 @@
   .controls {
     background-color: aliceblue;
     padding: 1em;
-    display: flex;
-    flex-direction: column;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0em;
+    left: 0em;
   }
 </style>
