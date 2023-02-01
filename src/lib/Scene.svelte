@@ -12,6 +12,16 @@
 
   const unsubscribe = appStore.subscribe((value) => (state = value));
   onDestroy(unsubscribe);
+
+  const smallBuilding = { color: 0x3eff00, height: 1 };
+  const mediumBuilding = { color: 0xff3e00, height: 2 };
+  const hugeBuilding = { color: 0x000000, height: 4 };
+
+  const grid = [
+    [null, mediumBuilding, smallBuilding, smallBuilding],
+    [hugeBuilding, smallBuilding, mediumBuilding],
+    [mediumBuilding, null, smallBuilding, null],
+  ];
 </script>
 
 <SC.Canvas
@@ -20,9 +30,21 @@
   fog={new THREE.FogExp2("papayawhip", state.controls.fogDensity)}
   shadows
 >
-  <Building
-    scale={[state.controls.width, state.controls.height, state.controls.depth]}
-  />
+  {#each grid as row, iRow}
+    {#each row as construction, iTile}
+      {#if construction}
+        <Building
+          scale={[
+            state.controls.width,
+            construction.height || state.controls.height,
+            state.controls.depth,
+          ]}
+          position={[iTile, 0, iRow]}
+          color={construction.color}
+        />
+      {/if}
+    {/each}
+  {/each}
 
   <SC.PerspectiveCamera position={[1, 1, 3]} />
 
