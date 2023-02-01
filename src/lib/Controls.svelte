@@ -1,9 +1,11 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
   import { appStore } from "../stores";
+  import Button from "./Button.svelte";
   import ControlsInput from "./ControlsInput.svelte";
 
   let gameIsPaused: boolean;
+  $: pauseButtonIcon = gameIsPaused ? "▶️" : "⏸️";
   $: pauseButtonLabel = gameIsPaused ? "Resume" : "Pause";
 
   const unsubscribe = appStore.subscribe((state) => {
@@ -24,6 +26,7 @@
   <!-- <ControlsInput label="width" />
   <ControlsInput label="height" />
   <ControlsInput label="depth" /> -->
+
   <ControlsInput
     min={0}
     max={0.2}
@@ -32,7 +35,9 @@
     attribute="fogDensity"
   />
   <ControlsInput max={1} label="Light intensity" attribute="lightIntensity" />
-  <button on:click={togglePlayPause}>{pauseButtonLabel}</button>
+  <Button on:click={togglePlayPause}>
+    {pauseButtonLabel}
+  </Button>
 </div>
 
 <style>
