@@ -7,20 +7,25 @@
     "/textures/heightmap-300x300.png"
   );
 
-  const terrainSegments = 20;
-  const terrainDisplacementScale = 20;
+  const terrainSize = 9 * 4;
+  const terrainSegments = (terrainSize * 60) / 100;
+  const terrainDisplacementScale = 8;
+  const color = new THREE.Color("burlywood"); // "burlywood"
+  const dispacementColor = new THREE.Color("tan");
+  const wireframeColor = new THREE.Color("ghostwhite"); // "sandybrown"
+  const wireframeMainAxisColor = new THREE.Color("ghostwhite");
 </script>
 
 <SC.Group position={[0, 0, 0]}>
   <SC.Mesh
     geometry={new THREE.PlaneGeometry(
-      100,
-      100,
+      terrainSize,
+      terrainSize,
       terrainSegments,
       terrainSegments
     )}
     material={new THREE.MeshBasicMaterial({
-      color: new THREE.Color("burlywood"),
+      color,
     })}
     rotation={[-Math.PI / 2, 0, 0]}
     position={[0, 0, 0]}
@@ -28,13 +33,13 @@
   />
   <SC.Mesh
     geometry={new THREE.PlaneGeometry(
-      100,
-      100,
+      terrainSize,
+      terrainSize,
       terrainSegments,
       terrainSegments
     )}
     material={new THREE.MeshPhongMaterial({
-      color: new THREE.Color("burlywood"),
+      color: dispacementColor,
       side: THREE.DoubleSide,
       displacementMap: heightMap,
       displacementScale: terrainDisplacementScale,
@@ -45,17 +50,16 @@
   />
   <SC.Mesh
     geometry={new THREE.PlaneGeometry(
-      100,
-      100,
+      terrainSize,
+      terrainSize,
       terrainSegments,
       terrainSegments
     )}
     material={new THREE.MeshPhongMaterial({
-      color: new THREE.Color("gainsboro"),
+      color: wireframeColor,
       side: THREE.FrontSide,
       displacementMap: heightMap,
       displacementScale: terrainDisplacementScale,
-
       wireframe: true,
     })}
     rotation={[-Math.PI / 2, 0, 0]}
@@ -65,10 +69,10 @@
 
   <SC.Primitive
     object={new THREE.GridHelper(
-      100,
-      100,
-      new THREE.Color("ghostwhite"),
-      new THREE.Color("gainsboro")
+      terrainSize,
+      terrainSize,
+      wireframeMainAxisColor,
+      wireframeColor
     )}
     position={[0, 0.001, 0]}
   />

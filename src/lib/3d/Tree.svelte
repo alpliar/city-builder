@@ -13,7 +13,7 @@
 
 <SC.Mesh
   geometry={new THREE.ConeGeometry(0.1, 0.9, 8)}
-  material={new THREE.MeshBasicMaterial({ color: 0x009900 })}
+  material={new THREE.MeshBasicMaterial({ color: new THREE.Color("seagreen") })}
   position={adjustedPosition}
   {scale}
   castShadow
