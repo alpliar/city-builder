@@ -27,6 +27,7 @@ const grid: Grid = [
 ];
 
 export const appStore = writable<AppState>({
+  autoRotate: false,
   grid,
   gameIsPaused: false,
   gameHasStarted: false,
