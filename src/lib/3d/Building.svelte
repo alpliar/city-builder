@@ -21,7 +21,7 @@
   const buildingSizeRatio = 0.9;
 
   $: x = position[0] - 0.5;
-  $: y = 0.01 + position[1];
+  $: y = appState.constants.positions.objectsFloor + position[1];
   $: z = position[2] - 0.5;
 
   $: adjustedPosition = [x, y, z] as SC.Position;

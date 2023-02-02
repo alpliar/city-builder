@@ -107,8 +107,8 @@ export const appStore = writable<AppState>({
   constants: {
     positions: {
       floor: 0.001,
-      tile: 0.002,
-      objectsFloor: 0.003,
+      tile: 0.001,
+      objectsFloor: 0.002,
     },
   },
 });
