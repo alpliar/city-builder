@@ -1,5 +1,6 @@
 <script lang="ts">
   import {
+    Input,
     Label,
     Listgroup,
     ListgroupItem,
@@ -39,6 +40,57 @@
     appStore.update((state) => ({
       ...state,
       autoRotate: !state.autoRotate,
+    }));
+  };
+
+  const handleChangeTerrainSize = (e: Event): void => {
+    const target = e.target as HTMLInputElement;
+
+    const value = Number(target.value);
+
+    appStore.update((state) => ({
+      ...state,
+      controls: {
+        ...state.controls,
+        terrain: {
+          ...state.controls.terrain,
+          size: value,
+        },
+      },
+    }));
+  };
+
+  const handleChangeTerrainDisplacementScale = (e: Event): void => {
+    const target = e.target as HTMLInputElement;
+
+    const value = Number(target.value);
+
+    appStore.update((state) => ({
+      ...state,
+      controls: {
+        ...state.controls,
+        terrain: {
+          ...state.controls.terrain,
+          displacementScale: value,
+        },
+      },
+    }));
+  };
+
+  const handleChangeTerrainSegments = (e: Event): void => {
+    const target = e.target as HTMLInputElement;
+
+    const value = Number(target.value);
+
+    appStore.update((state) => ({
+      ...state,
+      controls: {
+        ...state.controls,
+        terrain: {
+          ...state.controls.terrain,
+          segments: value,
+        },
+      },
     }));
   };
 </script>
@@ -91,12 +143,49 @@
         attribute="fogDensity"
       />
     </ListgroupItem>
+
+    <h4>Terrain</h4>
+    <ListgroupItem class="flex space-x-2">
+      <Label defaultClass="flex items-center">
+        <Input
+          class="mr-2 w-1/3"
+          type="number"
+          bind:value={appState.controls.terrain.size}
+          on:input={handleChangeTerrainSize}
+        />
+        <span class="w-1/2">Size</span>
+      </Label>
+    </ListgroupItem>
+    <ListgroupItem class="flex space-x-2">
+      <Label defaultClass="flex items-center">
+        <Input
+          class="mr-2 w-1/3"
+          type="number"
+          bind:value={appState.controls.terrain.displacementScale}
+          on:input={handleChangeTerrainDisplacementScale}
+        />
+        Displacement scale
+      </Label>
+    </ListgroupItem>
+    <ListgroupItem class="flex space-x-2">
+      <Label defaultClass="flex items-center">
+        <Input
+          class="mr-2 w-1/3"
+          type="number"
+          bind:value={appState.controls.terrain.segments}
+          on:input={handleChangeTerrainSegments}
+        />
+        Segments
+      </Label>
+    </ListgroupItem>
+
+    <!-- <h4>Lights</h4>
     <ListgroupItem class="flex space-x-2">
       <ControlsInput
         max={1}
         label="Light intensity"
         attribute="lightIntensity"
       />
-    </ListgroupItem>
+    </ListgroupItem> -->
   </Listgroup>
 </SpeedDial>

@@ -1,19 +1,27 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
   import * as SC from "svelte-cubed";
   import * as THREE from "three";
-  import { BackSide, Color, FrontSide } from "three";
+  import type { AppState } from "../../models/AppState.model";
+  import { appStore } from "../../stores";
 
   const heightMap = new THREE.TextureLoader().load(
     "/textures/heightmap-300x300.png"
   );
 
-  const terrainSize = 9 * 4;
-  const terrainSegments = (terrainSize * 60) / 100;
-  const terrainDisplacementScale = 8;
+  let appState: AppState;
+
+  $: terrainSize = appState.controls.terrain.size;
+  $: terrainSegments = appState.controls.terrain.segments;
+  $: terrainDisplacementScale = appState.controls.terrain.displacementScale;
+
   const color = new THREE.Color("burlywood"); // "burlywood"
   const dispacementColor = new THREE.Color("tan");
   const wireframeColor = new THREE.Color("ghostwhite"); // "sandybrown"
   const wireframeMainAxisColor = new THREE.Color("ghostwhite");
+
+  const unsubscribe = appStore.subscribe((state) => (appState = state));
+  onDestroy(unsubscribe);
 </script>
 
 <SC.Group position={[0, 0, 0]}>

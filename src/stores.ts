@@ -42,10 +42,21 @@ export const appStore = writable<AppState>({
   gameHasStarted: false,
   dayNightCycle: false,
   controls: {
+    terrain: {
+      size: 9 * 4,
+      displacementScale: 8,
+      segments: 30,
+    },
     depth: 1,
     height: 1,
     width: 1,
-    lightIntensity: 0.5,
+    ambientLight: {
+      intensity: 0.5,
+    },
+    directionalLight: {
+      intensity: 0.5,
+      position: [-2, 3, 2],
+    },
     fogDensity: 0.01,
   },
 });

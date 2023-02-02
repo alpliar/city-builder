@@ -36,8 +36,11 @@
 
   let cameraPosition: PerspectiveCameraProps["position"] = [-3, 3, 5];
   const lightPosition: DirectionalLightProps["position"] = [-2, 3, 2];
-  let lightIntensity: DirectionalLightProps["intensity"] = 0.6;
-  $: lightIntensity = 0.6;
+  let time = new Date();
+
+  $: hours = time.getHours();
+  $: minutes = time.getMinutes();
+  $: seconds = time.getSeconds();
 </script>
 
 <SC.Canvas
@@ -84,11 +87,11 @@
     autoRotate={appState.autoRotate}
     maxPolarAngle={Math.PI * 0.48}
   />
-  <SC.AmbientLight intensity={appState.controls.lightIntensity} />
+  <SC.AmbientLight intensity={appState.controls.ambientLight.intensity} />
 
   <SC.DirectionalLight
-    intensity={lightIntensity}
-    position={lightPosition}
+    intensity={appState.controls.directionalLight.intensity}
+    position={appState.controls.directionalLight.position}
     shadow={{ mapSize: [2048, 2048] }}
   />
 
