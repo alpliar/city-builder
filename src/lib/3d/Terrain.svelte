@@ -66,13 +66,14 @@
     )}
     material={new THREE.MeshPhongMaterial({
       color: dispacementColor,
-      side: THREE.DoubleSide,
+      side: THREE.FrontSide,
       displacementMap: heightMap,
       displacementScale: terrainDisplacementScale,
     })}
     rotation={[-Math.PI / 2, 0, 0]}
     position={[0, (-1 * terrainDisplacementScale) / 2, 0]}
     receiveShadow
+    castShadow
   />
 
   <!-- TERRAIN ELEVATION GRID -->
