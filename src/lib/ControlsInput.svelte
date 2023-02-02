@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Label } from "flowbite-svelte";
   import { onDestroy } from "svelte";
   import { appStore } from "../stores";
 
@@ -11,7 +12,7 @@
   let value;
 
   const unsubscribe = appStore.subscribe(
-    (state) => (value = state.controls[label])
+    (state) => (value = state.controls[attribute])
   );
 
   onDestroy(unsubscribe);
@@ -29,17 +30,18 @@
   };
 </script>
 
-<label>
-  <input on:input={handleInput} type="range" bind:value {min} {max} {step} />
-  {label}
-</label>
+<Label defaultClass="flex">
+  <input
+    class="mr-2 w-16"
+    on:input={handleInput}
+    type="range"
+    {value}
+    {min}
+    {max}
+    {step}
+  />
+  {`${label} (${value})`}
+</Label>
 
 <style>
-  label {
-    display: flex;
-    justify-content: space-between;
-  }
-  .controls label input {
-    max-width: 60%;
-  }
 </style>
