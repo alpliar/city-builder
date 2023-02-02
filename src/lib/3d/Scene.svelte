@@ -62,7 +62,7 @@
     shadow={{ mapSize: [2048, 2048] }}
   />
 
-  <Plane height={0} />
+  <Plane />
 </SC.Canvas>
 
 <Controls />
