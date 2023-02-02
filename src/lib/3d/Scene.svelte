@@ -57,7 +57,7 @@
     enableDamping
     enableZoom
     enablePan
-    maxPolarAngle={Math.PI * 0.41}
+    maxPolarAngle={Math.PI * 0.48}
   />
   <SC.AmbientLight intensity={appState.controls.lightIntensity} />
 
