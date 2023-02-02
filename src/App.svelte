@@ -69,4 +69,8 @@
   :global(body) {
     background-image: linear-gradient(to bottom, papayawhip, burlywood);
   }
+
+  :global(.container) {
+    max-width: inherit;
+  }
 </style>
