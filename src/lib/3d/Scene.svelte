@@ -7,6 +7,7 @@
   import Controls from "../interface/Controls.svelte";
   import Building from "./Building.svelte";
   import Plane from "./Plane.svelte";
+  import Tile from "./surfaces/Tile.svelte";
   import Tree from "./Tree.svelte";
 
   let appState: AppState;
@@ -23,6 +24,10 @@
 >
   {#each appState.grid as row, iRow}
     {#each row as tile, iTile}
+      <Tile
+        isEmpty={!tile?.construction}
+        position={[iTile - 0.5, 0.01 + -1 / 2, iRow - 0.5]}
+      />
       {#if tile?.construction}
         <Building
           scale={[
