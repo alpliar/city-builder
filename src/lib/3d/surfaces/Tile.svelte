@@ -6,8 +6,8 @@
   export let position: GroupProps["position"];
 
   const color: THREE.MeshStandardMaterialParameters["color"] = isEmpty
-    ? "darkseagreen"
-    : "tomato";
+    ? "goldenrod"
+    : "peru";
 
   const map = new THREE.TextureLoader().load("/textures/brick_diffuse.jpg");
   const roughnessMap = new THREE.TextureLoader().load(
