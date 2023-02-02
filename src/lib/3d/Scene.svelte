@@ -69,11 +69,6 @@
         />
       {:else if Math.random() >= 0.7}
         <Tree
-          scale={[
-            appState.controls.width * Math.random(),
-            appState.controls.height * Math.random(),
-            appState.controls.depth,
-          ]}
           position={[iTile, appState.constants.positions.objectsFloor, iRow]}
         />
       {/if}
