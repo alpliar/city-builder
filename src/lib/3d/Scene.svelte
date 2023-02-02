@@ -26,7 +26,7 @@
     {#each row as tile, iTile}
       <Tile
         isEmpty={!tile?.construction}
-        position={[iTile - 0.5, 0.01 + -1 / 2, iRow - 0.5]}
+        position={[iTile - 0.5, 0.002, iRow - 0.5]}
       />
       {#if tile?.construction}
         <Building
@@ -35,7 +35,7 @@
             tile.construction.height || appState.controls.height,
             appState.controls.depth,
           ]}
-          position={[iTile, 0, iRow]}
+          position={[iTile, tile.construction.height / 2, iRow]}
           color={tile.construction.color}
         />
       {:else}
@@ -45,7 +45,7 @@
             appState.controls.height,
             appState.controls.depth,
           ]}
-          position={[iTile, 0, iRow]}
+          position={[iTile, 0 + 1 / 2, iRow]}
         />
       {/if}
     {/each}
@@ -62,7 +62,7 @@
     shadow={{ mapSize: [2048, 2048] }}
   />
 
-  <Plane height={appState.controls.height} />
+  <Plane height={0} />
 </SC.Canvas>
 
 <Controls />
