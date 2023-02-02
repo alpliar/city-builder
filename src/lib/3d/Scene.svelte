@@ -55,7 +55,7 @@
     {#each row as tile, iTile}
       <Tile
         isEmpty={!tile?.construction}
-        position={[iTile - 0.5, 0.002, iRow - 0.5]}
+        position={[iTile - 0.5, appState.constants.positions.tile, iRow - 0.5]}
       />
       {#if tile?.construction}
         <Building
@@ -67,14 +67,14 @@
           position={[iTile, tile.construction.height / 2, iRow]}
           color={tile.construction.color}
         />
-      {:else}
+      {:else if Math.random() >= 0.7}
         <Tree
           scale={[
-            appState.controls.width,
-            appState.controls.height,
+            appState.controls.width * Math.random(),
+            appState.controls.height * Math.random(),
             appState.controls.depth,
           ]}
-          position={[iTile, 0 + 1 / 2, iRow]}
+          position={[iTile, appState.constants.positions.objectsFloor, iRow]}
         />
       {/if}
     {/each}

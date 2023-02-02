@@ -104,4 +104,11 @@ export const appStore = writable<AppState>({
     },
     fogDensity: 0.01,
   },
+  constants: {
+    positions: {
+      floor: 0.001,
+      tile: 0.002,
+      objectsFloor: 0.003,
+    },
+  },
 });

@@ -11,6 +11,14 @@ interface DirectionalLightControls {
   position: DirectionalLightProps["position"];
 }
 
+interface PositionsConstants {
+  floor: number;
+  tile: number;
+  objectsFloor: number;
+}
+interface Constants {
+  positions: PositionsConstants;
+}
 interface TerrainControls {
   size: number;
   segments: number;
@@ -32,4 +40,5 @@ export interface AppState {
   gameHasStarted: boolean;
   controls: AppControls;
   dayNightCycle: boolean;
+  constants: Constants;
 }
