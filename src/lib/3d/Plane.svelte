@@ -1,10 +1,9 @@
 <script lang="ts">
   import * as SC from "svelte-cubed";
   import * as THREE from "three";
-  export let height: number;
 </script>
 
-<SC.Group position={[0, -height / 2, 0]}>
+<SC.Group position={[0, 0, 0]}>
   <SC.Mesh
     geometry={new THREE.PlaneGeometry(50, 50)}
     material={new THREE.MeshStandardMaterial({ color: "burlywood" })}
