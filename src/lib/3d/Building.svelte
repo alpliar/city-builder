@@ -45,6 +45,7 @@
   position={adjustedPosition}
   {scale}
   castShadow
+  receiveShadow
 />
 
 <!-- <SC.Mesh
