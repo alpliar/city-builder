@@ -34,6 +34,13 @@
       dayNightCycle: !state.dayNightCycle,
     }));
   };
+
+  const toggleAutoRotate = (e = null): void => {
+    appStore.update((state) => ({
+      ...state,
+      autoRotate: !state.autoRotate,
+    }));
+  };
 </script>
 
 <!-- <Card class="absolute left-0">
@@ -65,6 +72,13 @@
       <Label defaultClass="flex">
         <Toggle on:change={togglePlayPause} checked={appState.gameIsPaused} />
         Pause {appState.gameIsPaused ? "[ON]" : "[OFF]"}
+      </Label>
+    </ListgroupItem>
+
+    <ListgroupItem class="flex space-x-2">
+      <Label defaultClass="flex">
+        <Toggle on:change={toggleAutoRotate} checked={appState.autoRotate} />
+        Auto Rotate {appState.autoRotate ? "[ON]" : "[OFF]"}
       </Label>
     </ListgroupItem>
 

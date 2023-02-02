@@ -8,6 +8,7 @@ interface AppControls {
   fogDensity: number;
 }
 export interface AppState {
+  autoRotate: boolean;
   grid: Grid;
   gameIsPaused: boolean;
   gameHasStarted: boolean;

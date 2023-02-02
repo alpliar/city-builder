@@ -57,6 +57,7 @@
     enableDamping
     enableZoom
     enablePan
+    autoRotate={appState.autoRotate}
     maxPolarAngle={Math.PI * 0.48}
   />
   <SC.AmbientLight intensity={appState.controls.lightIntensity} />
