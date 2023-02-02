@@ -36,6 +36,6 @@ export const appStore = writable<AppState>({
     height: 1,
     width: 1,
     lightIntensity: 0.5,
-    fogDensity: 0.02,
+    fogDensity: 0.01,
   },
 });
