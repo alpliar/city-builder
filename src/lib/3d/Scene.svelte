@@ -53,7 +53,12 @@
 
   <SC.PerspectiveCamera position={[-3, 3, 5]} />
 
-  <SC.OrbitControls enableZoom enablePan maxPolarAngle={Math.PI * 0.51} />
+  <SC.OrbitControls
+    enableDamping
+    enableZoom
+    enablePan
+    maxPolarAngle={Math.PI * 0.41}
+  />
   <SC.AmbientLight intensity={appState.controls.lightIntensity} />
 
   <SC.DirectionalLight
