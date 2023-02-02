@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Label } from "flowbite-svelte";
+  import { Label, Range } from "flowbite-svelte";
   import { onDestroy } from "svelte";
   import { appStore } from "../stores";
 
@@ -30,17 +30,18 @@
   };
 </script>
 
-<Label defaultClass="flex">
-  <input
-    class="mr-2 w-16"
-    on:input={handleInput}
-    type="range"
-    {value}
+<Label defaultClass="flex space-x-2">
+  <Range
+    size="md"
+    class="w-16"
+    on:change={handleInput}
+    on:keyup={handleInput}
+    bind:value
     {min}
     {max}
     {step}
   />
-  {`${label} (${value})`}
+  <span>{`${label} (${value})`}</span>
 </Label>
 
 <style>
