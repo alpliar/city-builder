@@ -1,12 +1,11 @@
 <script lang="ts">
   import { A, ButtonGroup, Heading, P } from "flowbite-svelte";
   import { onDestroy } from "svelte";
-  import Button from "./lib/Button.svelte";
-  import Scene from "./lib/Scene.svelte";
-  import { appStore } from "./stores";
-  import MdFiberNew from "svelte-icons/md/MdFiberNew.svelte";
   import MdNewReleases from "svelte-icons/md/MdNewReleases.svelte";
   import MdSave from "svelte-icons/md/MdSave.svelte";
+  import Scene from "./lib/3d/Scene.svelte";
+  import Button from "./lib/interface/Button.svelte";
+  import { appStore } from "./stores";
   let gameHasStarted: boolean = false;
 
   const unsubscribe = appStore.subscribe(

@@ -8,9 +8,9 @@
   } from "flowbite-svelte";
   import { onDestroy } from "svelte";
   import GoSettings from "svelte-icons/go/GoSettings.svelte";
-  import { appStore } from "../stores";
+  import { appStore } from "../../stores";
 
-  import type { AppState } from "../models/AppState.model";
+  import type { AppState } from "../../models/AppState.model";
   import ControlsInput from "./ControlsInput.svelte";
 
   let appState: AppState;

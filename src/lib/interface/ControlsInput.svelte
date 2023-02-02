@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Label, Range } from "flowbite-svelte";
   import { onDestroy } from "svelte";
-  import { appStore } from "../stores";
+  import { appStore } from "../../stores";
 
   export let min: number = 0.1,
     max: number = 3,

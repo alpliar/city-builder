@@ -2,10 +2,10 @@
   import { onDestroy } from "svelte";
   import * as SC from "svelte-cubed";
   import * as THREE from "three";
-  import type { AppState } from "../models/AppState.model";
-  import { appStore } from "../stores";
+  import type { AppState } from "../../models/AppState.model";
+  import { appStore } from "../../stores";
+  import Controls from "../interface/Controls.svelte";
   import Building from "./Building.svelte";
-  import Controls from "./Controls.svelte";
   import Plane from "./Plane.svelte";
   import Tree from "./Tree.svelte";
 
