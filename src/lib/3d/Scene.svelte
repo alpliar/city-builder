@@ -6,7 +6,7 @@
   import { appStore } from "../../stores";
   import Controls from "../interface/Controls.svelte";
   import Building from "./Building.svelte";
-  import Plane from "./Plane.svelte";
+  import Terrain from "./Terrain.svelte";
   import Tile from "./surfaces/Tile.svelte";
   import Tree from "./Tree.svelte";
 
@@ -68,7 +68,7 @@
     shadow={{ mapSize: [2048, 2048] }}
   />
 
-  <Plane />
+  <Terrain />
 </SC.Canvas>
 
 <Controls />
