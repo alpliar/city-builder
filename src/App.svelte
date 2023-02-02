@@ -1,7 +1,12 @@
 <script lang="ts">
+  import { A, ButtonGroup, Heading, P } from "flowbite-svelte";
   import { onDestroy } from "svelte";
+  import Button from "./lib/Button.svelte";
   import Scene from "./lib/Scene.svelte";
   import { appStore } from "./stores";
+  import MdFiberNew from "svelte-icons/md/MdFiberNew.svelte";
+  import MdNewReleases from "svelte-icons/md/MdNewReleases.svelte";
+  import MdSave from "svelte-icons/md/MdSave.svelte";
   let gameHasStarted: boolean = false;
 
   const unsubscribe = appStore.subscribe(
@@ -22,24 +27,37 @@
   {#if gameHasStarted}
     <Scene />
   {:else}
-    <h1>Welcome to city-builder !</h1>
+    <Heading
+      tag="h1"
+      class="mb-4"
+      customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl"
+    >
+      Welcome to city builder
+    </Heading>
 
-    <div class="card">
-      <div class="buttons">
-        <button class="new-game" on:click={handleClickNewGame}>New city</button>
-        <button disabled on:click={() => console.error("NOT_IMPLEMENTED")}>
-          Load previous save
-        </button>
-      </div>
-      <!-- <Counter /> -->
-      <p>
-        Check out <a
-          href="https://github.com/alpliar/city-builder"
-          target="_blank"
-          rel="noreferrer">city-builder source code on github</a
-        > !
-      </p>
-    </div>
+    <P class="mb-6 text-lg lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+      Here at City Builder we focus on building a new game idea. Please remember
+      that you're using an alpha version.
+    </P>
+
+    <ButtonGroup class="space-x-2 mb-6 ">
+      <Button color="blue" size="xl" on:click={handleClickNewGame}>
+        <MdNewReleases slot="leftIcon" />
+        New game
+      </Button>
+      <Button size="xl" on:click={() => console.error("NOT_IMPLEMENTED")}>
+        <MdSave slot="leftIcon" />
+        Load previous save
+      </Button>
+    </ButtonGroup>
+
+    <P class="text-center">
+      Check out <A
+        href="https://github.com/alpliar/city-builder"
+        target="_blank"
+        rel="noreferrer">city-builder source code on github</A
+      > !
+    </P>
 
     <!-- <p class="read-the-docs">
       Click on the Vite and Svelte logos to learn more
@@ -48,45 +66,7 @@
 </main>
 
 <style>
-  h1 {
-    font-weight: bold;
-    font-size: "xx-large";
-  }
   :global(body) {
     background-image: linear-gradient(to bottom, papayawhip, burlywood);
   }
-
-  .card {
-    background: white;
-    padding: 1em;
-    border-radius: 1em;
-  }
-
-  .buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    max-width: 20em;
-    margin: auto;
-  }
-
-  button {
-    height: 4em;
-    font-size: 1.3em;
-    font-weight: bold;
-    filter: opacity(1);
-  }
-  button:hover {
-    filter: opacity(0.9);
-  }
-
-  .new-game {
-    color: white;
-    background-color: #cf4010;
-    will-change: filter;
-  }
-
-  /* .read-the-docs {
-    color: #888;
-  } */
 </style>

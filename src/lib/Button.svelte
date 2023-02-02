@@ -4,7 +4,8 @@
   import { createEventDispatcher } from "svelte";
   export let defaultClass: ButtonProps["defaultClass"] = undefined;
   export let size: ButtonProps["size"] = "md";
-  $: iconClass = size === "md" ? "w-3 h-3" : "w-5 h-5";
+  export let color: ButtonProps["color"] = "light";
+  $: iconClass = size === "md" ? "w-3 h-3 mr-2" : "w-6 h-6 mr-2";
 
   const dispatch = createEventDispatcher();
 
@@ -13,7 +14,7 @@
   };
 </script>
 
-<Button class={defaultClass} on:click={handleClick} {size}>
+<Button class={defaultClass} on:click={handleClick} {size} {color}>
   {#if $$slots.leftIcon}
     <span class={iconClass}>
       <slot name="leftIcon" />
