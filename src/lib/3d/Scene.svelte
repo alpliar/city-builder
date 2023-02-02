@@ -49,6 +49,8 @@
   fog={new THREE.FogExp2("papayawhip", appState.controls.fogDensity)}
   shadows
 >
+  <Terrain />
+
   {#each appState.grid as row, iRow}
     {#each row as tile, iTile}
       <Tile
@@ -94,8 +96,6 @@
     position={appState.controls.directionalLight.position}
     shadow={{ mapSize: [2048, 2048] }}
   />
-
-  <Terrain />
 </SC.Canvas>
 
 <Controls />

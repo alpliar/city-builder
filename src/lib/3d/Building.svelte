@@ -1,11 +1,18 @@
 <script lang="ts">
   import * as SC from "svelte-cubed";
+  import { onDestroy } from "svelte";
   import type { MeshStandardMaterialParameters } from "three";
   import * as THREE from "three";
+  import type { AppState } from "../../models/AppState.model";
+  import { appStore } from "../../stores";
 
   export let scale: number | [number, number, number];
   export let position: SC.Position;
   export let color: MeshStandardMaterialParameters["color"];
+
+  let appState: AppState;
+  const unsubscribe = appStore.subscribe((state) => (appState = state));
+  onDestroy(unsubscribe);
 
   let height = 1,
     width = 1,
@@ -26,7 +33,15 @@
     height,
     depth * buildingSizeRatio
   )}
-  material={new THREE.MeshStandardMaterial({ color })}
+  material={new THREE.MeshPhysicalMaterial({
+    color,
+    clearcoat: 1,
+    metalness: 1,
+    roughness: 1,
+    emissive: color,
+    flatShading: true,
+    emissiveIntensity: 0.8,
+  })}
   position={adjustedPosition}
   {scale}
   castShadow

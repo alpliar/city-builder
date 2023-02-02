@@ -25,14 +25,59 @@ const tileWithConstruction = (construction): GridTile => {
   };
 };
 
+const terrainSize = 10;
+
+// const grid: Grid = Array(terrainSize).fill(Array(terrainSize).fill(emptyTile));
+
 const grid: Grid = [
+  [
+    emptyTile,
+    emptyTile,
+    tileWithConstruction(smallBuilding),
+    emptyTile,
+    tileWithConstruction(mediumBuilding),
+    emptyTile,
+  ],
+  [
+    tileWithConstruction(smallBuilding),
+    emptyTile,
+    emptyTile,
+    emptyTile,
+    tileWithConstruction(mediumBuilding),
+    emptyTile,
+  ],
   [
     tileWithConstruction(smallBuilding),
     emptyTile,
     tileWithConstruction(mediumBuilding),
+    emptyTile,
+    emptyTile,
+    emptyTile,
   ],
-  [emptyTile, tileWithConstruction(mediumBuilding), emptyTile],
-  [emptyTile, emptyTile, tileWithConstruction(hugeBuilding)],
+  [
+    tileWithConstruction(smallBuilding),
+    emptyTile,
+    emptyTile,
+    emptyTile,
+    emptyTile,
+    tileWithConstruction(mediumBuilding),
+  ],
+  [
+    emptyTile,
+    emptyTile,
+    emptyTile,
+    tileWithConstruction(mediumBuilding),
+    emptyTile,
+    emptyTile,
+  ],
+  [
+    emptyTile,
+    emptyTile,
+    emptyTile,
+    emptyTile,
+    emptyTile,
+    tileWithConstruction(hugeBuilding),
+  ],
 ];
 
 export const appStore = writable<AppState>({
@@ -43,8 +88,8 @@ export const appStore = writable<AppState>({
   dayNightCycle: false,
   controls: {
     terrain: {
-      size: 9 * 4,
-      displacementScale: 8,
+      size: terrainSize,
+      displacementScale: 3,
       segments: 30,
     },
     depth: 1,
