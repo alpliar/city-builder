@@ -26,13 +26,21 @@
 
 <Canvas shadows flat linear>
   <FogExp2 color={"papayawhip"} density={appState.controls.fogDensity} />
-  <Three type={PerspectiveCamera} makeDefault position={[10, 10, 10]} fov={24}>
+  <Three
+    type={PerspectiveCamera}
+    makeDefault
+    position={[50, appState.controls.terrain.size * 2, 50]}
+    fov={12}
+  >
     <OrbitControls
       maxPolarAngle={degToRad(80)}
       enableDamping
       enableZoom
       enablePan
-      target={{ z: 5 }}
+      target={{
+        x: appState.controls.terrain.size / 2,
+        z: appState.controls.terrain.size / 2,
+      }}
       autoRotate={appState.autoRotate}
       maxDistance={50}
     />
