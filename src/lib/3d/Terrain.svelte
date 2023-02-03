@@ -48,11 +48,13 @@
       terrainSegments,
       terrainSegments
     )}
-    material={new THREE.MeshBasicMaterial({
+    material={new THREE.MeshPhysicalMaterial({
       color,
+      flatShading: true,
+      bumpMap: heightMap,
     })}
     rotation={[-Math.PI / 2, 0, 0]}
-    position={[0, 0.001, 0]}
+    position={[0, 0.002, 0]}
     receiveShadow
   />
 
@@ -69,6 +71,7 @@
       side: THREE.FrontSide,
       displacementMap: heightMap,
       displacementScale: terrainDisplacementScale,
+      bumpMap: heightMap,
     })}
     rotation={[-Math.PI / 2, 0, 0]}
     position={[0, (-1 * terrainDisplacementScale) / 2, 0]}
