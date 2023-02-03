@@ -103,7 +103,7 @@ export const appStore = writable<AppState>({
     },
     directionalLight: {
       intensity: 0.5,
-      position: [-2, 3, 2],
+      position: [5, 3, 2],
     },
     fogDensity: 0.01,
   },
