@@ -37,7 +37,7 @@
       wireframeMainAxisColor,
       wireframeColor
     )}
-    position={[0, 0.004, 0]}
+    position={[0, appState.constants.positions.objectsFloor, 0]}
   />
 
   <!-- FLAT TERRAIN -->
@@ -54,7 +54,7 @@
       bumpMap: heightMap,
     })}
     rotation={[-Math.PI / 2, 0, 0]}
-    position={[0, 0.002, 0]}
+    position={[0, appState.constants.positions.floor, 0]}
     receiveShadow
   />
 
@@ -74,6 +74,7 @@
       bumpMap: heightMap,
       bumpScale: 0.5,
       flatShading: true,
+      clippingPlanes: [],
     })}
     rotation={[-Math.PI / 2, 0, 0]}
     position={[0, (-1 * terrainDisplacementScale) / 2, 0]}
