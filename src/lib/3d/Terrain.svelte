@@ -66,7 +66,7 @@
       terrainSegments,
       terrainSegments
     )}
-    material={new THREE.MeshPhongMaterial({
+    material={new THREE.MeshPhysicalMaterial({
       color: dispacementColor,
       side: THREE.FrontSide,
       displacementMap: heightMap,
