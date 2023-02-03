@@ -32,60 +32,22 @@ const terrainSize = 10;
 
 // const grid: Grid = Array(terrainSize).fill(Array(terrainSize).fill(emptyTile));
 
-const grid: Grid = [
-  [
-    emptyTile,
-    emptyTile,
-    tileWithConstruction(smallBuilding),
-    emptyTile,
-    tileWithConstruction(mediumBuilding),
-    emptyTile,
-  ],
-  [
-    tileWithConstruction(smallBuilding),
-    emptyTile,
-    emptyTile,
-    emptyTile,
-    tileWithConstruction(mediumBuilding),
-    emptyTile,
-  ],
-  [
-    tileWithConstruction(smallBuilding),
-    emptyTile,
-    tileWithConstruction(mediumBuilding),
-    emptyTile,
-    emptyTile,
-    emptyTile,
-  ],
-  [
-    tileWithConstruction(smallBuilding),
-    emptyTile,
-    emptyTile,
-    emptyTile,
-    emptyTile,
-    tileWithConstruction(mediumBuilding),
-  ],
-  [
-    emptyTile,
-    emptyTile,
-    emptyTile,
-    tileWithConstruction(mediumBuilding),
-    emptyTile,
-    emptyTile,
-  ],
-  [
-    emptyTile,
-    emptyTile,
-    emptyTile,
-    emptyTile,
-    emptyTile,
-    tileWithConstruction(hugeBuilding),
-  ],
-];
+const getGrid = (): Grid => {
+  return [...new Array(terrainSize)].map((_row) =>
+    [...new Array(terrainSize)].map((_tile) => {
+      const rando = Math.random();
+      if (rando > 0.99) return tileWithConstruction(hugeBuilding);
+      if (rando > 0.9) return tileWithConstruction(mediumBuilding);
+      if (rando > 0.8) return tileWithConstruction(smallBuilding);
+
+      return emptyTile;
+    })
+  );
+};
 
 export const appStore = writable<AppState>({
   autoRotate: false,
-  grid,
+  grid: getGrid(),
   gameIsPaused: false,
   gameHasStarted: false,
   dayNightCycle: false,
