@@ -1,7 +1,11 @@
+import type { Color } from "three";
+
 export interface Construction {
   name: string;
   height: number;
-  color: number;
+  width?: number;
+  depth?: number;
+  color: Color;
 }
 
 export interface GridTile {

@@ -60,9 +60,11 @@
       {#if tile?.construction}
         <Building
           scale={[
-            appState.controls.width,
+            tile.construction.width || appState.controls.width,
             tile.construction.height || appState.controls.height,
-            appState.controls.depth,
+            tile.construction.depth ||
+              tile.construction.width ||
+              appState.controls.depth,
           ]}
           position={[iTile, tile.construction.height / 2, iRow]}
           color={tile.construction.color}
@@ -83,13 +85,14 @@
     enablePan
     autoRotate={appState.autoRotate}
     maxPolarAngle={Math.PI * 0.48}
+    maxDistance={50}
   />
   <SC.AmbientLight intensity={appState.controls.ambientLight.intensity} />
 
   <SC.DirectionalLight
     intensity={appState.controls.directionalLight.intensity}
     position={appState.controls.directionalLight.position}
-    shadow={{ mapSize: [2048, 2048] }}
+    shadow={{ mapSize: [2048 * 2, 2048 * 2] }}
   />
 </SC.Canvas>
 

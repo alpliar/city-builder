@@ -1,21 +1,24 @@
 import { writable } from "svelte/store";
 import * as THREE from "three";
 import type { AppState } from "./models/AppState.model";
-import type { Grid, GridTile } from "./models/Grid.model";
+import type { Construction, Grid, GridTile } from "./models/Grid.model";
 
-const smallBuilding = {
+const smallBuilding: Construction = {
   color: new THREE.Color("springgreen"),
-  height: 1,
+  height: 0.5,
+  width: 0.5,
   name: "small building",
 };
-const mediumBuilding = {
+const mediumBuilding: Construction = {
   color: new THREE.Color("tomato"),
-  height: 2,
+  height: 1.5,
+  width: 0.75,
   name: "medium building",
 };
-const hugeBuilding = {
+const hugeBuilding: Construction = {
   color: new THREE.Color("rebeccapurple"),
-  height: 4,
+  height: 3,
+  width: 0.9,
   name: "Sky scrapper",
 };
 const emptyTile = { construction: null };
