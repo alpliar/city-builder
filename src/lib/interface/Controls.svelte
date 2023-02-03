@@ -9,7 +9,7 @@
   } from "flowbite-svelte";
   import { onDestroy } from "svelte";
   import GoSettings from "svelte-icons/go/GoSettings.svelte";
-  import { appStore } from "../../stores";
+  import { appStore, generateGrid } from "../../stores";
 
   import type { AppState } from "../../models/AppState.model";
   import ControlsInput from "./ControlsInput.svelte";
@@ -48,8 +48,11 @@
 
     const value = Number(target.value);
 
+    const newGrid = generateGrid(value);
+
     appStore.update((state) => ({
       ...state,
+      grid: newGrid,
       controls: {
         ...state.controls,
         terrain: {

@@ -1,43 +1,29 @@
 <script lang="ts">
+  import { T, Three } from "@threlte/core";
   import { onDestroy } from "svelte";
-  import * as SC from "svelte-cubed";
-  import type { GroupProps } from "svelte-cubed/components/objects/Group.svelte";
-  import * as THREE from "three";
-  export let isEmpty: boolean = true;
-  export let position: GroupProps["position"];
+  import { BoxGeometry, Mesh, MeshStandardMaterial } from "three";
   import type { AppState } from "../../../models/AppState.model";
   import { appStore } from "../../../stores";
+
+  export let isEmpty: boolean = true;
+  export let position;
 
   let appState: AppState;
   const unsubscribe = appStore.subscribe((state) => (appState = state));
 
   onDestroy(unsubscribe);
-  const color: THREE.MeshStandardMaterialParameters["color"] = isEmpty
-    ? "goldenrod"
-    : "peru";
-
-  // const map = new THREE.TextureLoader().load("/textures/brick_diffuse.jpg");
-  // const roughnessMap = new THREE.TextureLoader().load(
-  //   "/maps/brick_roughness.jpg"
-  // );
+  const color = isEmpty ? "goldenrod" : "peru";
 </script>
 
-<SC.Group {position}>
-  <SC.Mesh
-    geometry={new THREE.BoxGeometry(1, 1, 0.001)}
-    material={new THREE.MeshStandardMaterial({
-      color,
-      flatShading: true,
-      opacity: 0.5,
-      transparent: true,
-    })}
-    rotation={[-Math.PI / 2, 0, 0]}
-    position={[0, appState.constants.positions.floor, 0]}
-    receiveShadow
-  />
-
-  <!-- <SC.Primitive
-    object={new THREE.GridHelper(50, 50, 0x444444, 0x555555)}
-    position={[0, 0.001, 0]}
-  /> -->
-</SC.Group>
+<Three
+  type={Mesh}
+  geometry={new BoxGeometry(1, 1, appState.constants.positions.floor)}
+  material={new MeshStandardMaterial({
+    color,
+    flatShading: true,
+    opacity: 0.5,
+    transparent: true,
+  })}
+  rotation={[-Math.PI / 2, 0, 0]}
+  {position}
+/>

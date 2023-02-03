@@ -9,7 +9,7 @@ const smallBuilding: Construction = {
   width: 0.5,
   name: "small building",
 };
-const mediumBuilding: Construction = {
+const mediumBuilding = {
   color: new THREE.Color("tomato"),
   height: 1.5,
   width: 0.75,
@@ -21,20 +21,21 @@ const hugeBuilding: Construction = {
   width: 0.9,
   name: "Sky scrapper",
 };
-const emptyTile = { construction: null };
+const emptyTile = { isEmpty: true, construction: null };
 const tileWithConstruction = (construction): GridTile => {
   return {
+    isEmpty: false,
     construction,
   };
 };
 
-const terrainSize = 10;
+const terrainSize = 20;
 
 // const grid: Grid = Array(terrainSize).fill(Array(terrainSize).fill(emptyTile));
 
-const getGrid = (): Grid => {
-  return [...new Array(terrainSize)].map((_row) =>
-    [...new Array(terrainSize)].map((_tile) => {
+export const generateGrid = (size: number): Grid => {
+  return [...new Array(size)].map((_row) =>
+    [...new Array(size)].map((_tile) => {
       const rando = Math.random();
       if (rando > 0.99) return tileWithConstruction(hugeBuilding);
       if (rando > 0.9) return tileWithConstruction(mediumBuilding);
@@ -47,7 +48,7 @@ const getGrid = (): Grid => {
 
 export const appStore = writable<AppState>({
   autoRotate: false,
-  grid: getGrid(),
+  grid: generateGrid(terrainSize),
   gameIsPaused: false,
   gameHasStarted: false,
   dayNightCycle: false,
@@ -61,7 +62,7 @@ export const appStore = writable<AppState>({
     height: 1,
     width: 1,
     ambientLight: {
-      intensity: 0.5,
+      intensity: 0.2,
     },
     directionalLight: {
       intensity: 1,

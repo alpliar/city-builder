@@ -1,39 +1,32 @@
 <script lang="ts">
-  import * as SC from "svelte-cubed";
+  import { Three } from "@threlte/core";
   import { onDestroy } from "svelte";
-  import type { MeshStandardMaterialParameters } from "three";
-  import * as THREE from "three";
+  import {
+    BoxGeometry,
+    Mesh,
+    MeshPhysicalMaterial,
+    type MeshStandardMaterialParameters,
+  } from "three";
   import type { AppState } from "../../models/AppState.model";
   import { appStore } from "../../stores";
 
-  export let scale: number | [number, number, number];
-  export let position: SC.Position;
+  export let position;
   export let color: MeshStandardMaterialParameters["color"];
 
   let appState: AppState;
   const unsubscribe = appStore.subscribe((state) => (appState = state));
   onDestroy(unsubscribe);
 
-  let height = 1,
-    width = 1,
-    depth = 1;
+  export let height = 1;
+  export let width = 1;
 
-  const buildingSizeRatio = 0.9;
-
-  $: x = position[0] - 0.5;
-  $: y = appState.constants.positions.objectsFloor + position[1];
-  $: z = position[2] - 0.5;
-
-  $: adjustedPosition = [x, y, z] as SC.Position;
+  const sizeRatio = 0.9;
 </script>
 
-<SC.Mesh
-  geometry={new THREE.BoxGeometry(
-    width * buildingSizeRatio,
-    height,
-    depth * buildingSizeRatio
-  )}
-  material={new THREE.MeshPhysicalMaterial({
+<Three
+  type={Mesh}
+  geometry={new BoxGeometry(width, height, width)}
+  material={new MeshPhysicalMaterial({
     color,
     clearcoat: 1,
     metalness: 1,
@@ -42,23 +35,8 @@
     flatShading: true,
     emissiveIntensity: 0.8,
   })}
-  position={adjustedPosition}
-  {scale}
+  scale={[sizeRatio, 1, sizeRatio]}
+  position={[position[0], height / 2, position[2]]}
   castShadow
   receiveShadow
 />
-
-<!-- <SC.Mesh
-    geometry={new THREE.BoxGeometry()}
-    material={new THREE.MeshStandardMaterial({ color: 0xff3e00 })}
-    scale={[width, height, depth]}
-    position={[2, 0.01, 0]}
-    castShadow
-  />
-  <SC.Mesh
-    geometry={new THREE.BoxGeometry()}
-    material={new THREE.MeshStandardMaterial({ color: 0x003e00 })}
-    scale={[width / 2, height * 2, depth / 2]}
-    position={[0, 0.01, 0]}
-    castShadow
-  /> -->

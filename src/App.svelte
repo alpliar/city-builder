@@ -22,10 +22,10 @@
   };
 </script>
 
-<main>
-  {#if gameHasStarted}
-    <Scene />
-  {:else}
+{#if gameHasStarted}
+  <Scene />
+{:else}
+  <main class="mt-10">
     <Heading
       tag="h1"
       class="mb-4"
@@ -61,8 +61,8 @@
     <!-- <p class="read-the-docs">
       Click on the Vite and Svelte logos to learn more
     </p> -->
-  {/if}
-</main>
+  </main>
+{/if}
 
 <style>
   :global(body) {
@@ -71,5 +71,18 @@
 
   :global(.container) {
     max-width: inherit;
+  }
+
+  :global(#app) {
+    padding: 0;
+    max-width: 100%;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  main {
+    padding: 10%;
+    max-width: 1280px;
+    margin: auto;
   }
 </style>
