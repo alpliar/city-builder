@@ -72,6 +72,7 @@
       displacementMap: heightMap,
       displacementScale: terrainDisplacementScale,
       bumpMap: heightMap,
+      flatShading: true,
     })}
     rotation={[-Math.PI / 2, 0, 0]}
     position={[0, (-1 * terrainDisplacementScale) / 2, 0]}
