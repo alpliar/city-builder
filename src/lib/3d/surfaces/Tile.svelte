@@ -1,18 +1,25 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
   import * as SC from "svelte-cubed";
   import type { GroupProps } from "svelte-cubed/components/objects/Group.svelte";
   import * as THREE from "three";
   export let isEmpty: boolean = true;
   export let position: GroupProps["position"];
+  import type { AppState } from "../../../models/AppState.model";
+  import { appStore } from "../../../stores";
 
+  let appState: AppState;
+  const unsubscribe = appStore.subscribe((state) => (appState = state));
+
+  onDestroy(unsubscribe);
   const color: THREE.MeshStandardMaterialParameters["color"] = isEmpty
     ? "goldenrod"
     : "peru";
 
-  const map = new THREE.TextureLoader().load("/textures/brick_diffuse.jpg");
-  const roughnessMap = new THREE.TextureLoader().load(
-    "/textures/brick_roughness.jpg"
-  );
+  // const map = new THREE.TextureLoader().load("/textures/brick_diffuse.jpg");
+  // const roughnessMap = new THREE.TextureLoader().load(
+  //   "/maps/brick_roughness.jpg"
+  // );
 </script>
 
 <SC.Group {position}>
@@ -21,13 +28,11 @@
     material={new THREE.MeshStandardMaterial({
       color,
       flatShading: true,
-      //   map,
-      //   roughnessMap,
-      //   roughness: 1,
-      //   metalness: 0.5,
+      opacity: 0.5,
+      transparent: true,
     })}
     rotation={[-Math.PI / 2, 0, 0]}
-    position={[0, 0.001, 0]}
+    position={[0, appState.constants.positions.floor, 0]}
     receiveShadow
   />
 
