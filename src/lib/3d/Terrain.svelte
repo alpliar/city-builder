@@ -62,7 +62,7 @@
     })}
     rotation={[-Math.PI / 2, 0, 0]}
     position={[0, appState.constants.positions.floor, 0]}
-    receiveShadow
+    receiveShadow={appState.graphics.shadows}
   />
 
   <!-- TERRAIN ELEVATION -->
@@ -82,8 +82,8 @@
       })}
       rotation={[-Math.PI / 2, 0, 0]}
       position={[0, (-1 * terrainDisplacementScale) / 2, 0]}
-      receiveShadow
-      castShadow
+      receiveShadow={appState.graphics.shadows}
+      castShadow={appState.graphics.shadows}
     />
     <!-- Grid -->
     <T.Mesh
@@ -97,7 +97,7 @@
       })}
       rotation={[-Math.PI / 2, 0, 0]}
       position={[0, (-1 * terrainDisplacementScale) / 2, 0]}
-      receiveShadow
+      receiveShadow={appState.graphics.shadows}
     />
   </T.Group>
 

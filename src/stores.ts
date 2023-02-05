@@ -57,6 +57,7 @@ export const appStore = writable<AppState>({
     antiAliasing: true,
     precision: "mediump",
     powerPreference: "default",
+    shadows: true,
   },
   controls: {
     terrain: {

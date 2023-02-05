@@ -46,6 +46,15 @@
       },
     }));
   };
+  const toggleShadows = (): void => {
+    appStore.update((state) => ({
+      ...state,
+      graphics: {
+        ...state.graphics,
+        shadows: !state.graphics.shadows,
+      },
+    }));
+  };
 
   const setGraphicsPrecision = (
     precision: AppState["graphics"]["precision"]
@@ -147,6 +156,12 @@
     </h3>
 
     <h4>Graphics</h4>
+    <ListgroupItem class="flex space-x-2">
+      <Label defaultClass="flex">
+        <Toggle on:change={toggleShadows} checked={appState.graphics.shadows} />
+        Shadows {appState.graphics.shadows ? "[ON]" : "[OFF]"}
+      </Label>
+    </ListgroupItem>
     <ListgroupItem class="flex space-x-2">
       <Label defaultClass="flex">
         <Toggle

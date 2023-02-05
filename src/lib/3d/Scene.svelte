@@ -25,7 +25,7 @@
 </script>
 
 <Canvas
-  shadows
+  shadows={appState.graphics.shadows}
   flat
   linear
   rendererParameters={{
@@ -55,7 +55,11 @@
     />
   </Three>
 
-  <Three type={DirectionalLight} castShadow position={[3, 10, 10]} />
+  <Three
+    type={DirectionalLight}
+    castShadow={appState.graphics.shadows}
+    position={[3, 10, 10]}
+  />
   <Three type={DirectionalLight} position={[-3, 10, -10]} intensity={0.2} />
   <Three
     type={AmbientLight}
@@ -126,7 +130,7 @@
   <!-- Cube -->
   <!-- 
     <Three type={Group} scale={$scale}>
-    <Three type={Mesh} position.y={0.5} castShadow let:ref>
+    <Three type={Mesh} position.y={0.5} castShadow={appState.graphics.shadows} let:ref>
       
       <InteractiveObject
         object={ref}
@@ -142,7 +146,7 @@
    -->
 
   <!-- Floor -->
-  <!--<Three type={Mesh} receiveShadow rotation.x={degToRad(-90)}>
+  <!--<Three type={Mesh} receiveShadow={appState.graphics.shadows} rotation.x={degToRad(-90)}>
     <Three type={CircleGeometry} args={[3, 72]} />
     <Three type={MeshStandardMaterial} color="white" />
   </Three>-->

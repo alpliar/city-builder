@@ -39,6 +39,7 @@ interface GraphicsSettings {
   antiAliasing: boolean;
   precision: "highp" | "mediump" | "lowp";
   powerPreference: "high-performance" | "low-power" | "default";
+  shadows: boolean;
 }
 
 export interface AppState {

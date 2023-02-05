@@ -24,7 +24,10 @@
 </script>
 
 <T.Group {position}>
-  <T.Mesh castShadow receiveShadows>
+  <T.Mesh
+    castShadow={appState.graphics.shadows}
+    receiveShadows={appState.graphics.shadows}
+  >
     <T.BoxGeometry />
     <T.MeshPhysicalMaterial
       args={[

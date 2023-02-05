@@ -28,6 +28,6 @@
   })}
   scale={[width, height, width]}
   position={[position[0], height / 2, position[2]]}
-  castShadow
-  receiveShadow
+  castShadow={appState.graphics.shadows}
+  receiveShadow={appState.graphics.shadows}
 />
