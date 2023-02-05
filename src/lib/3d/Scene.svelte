@@ -24,7 +24,16 @@
   onDestroy(unsubscribe);
 </script>
 
-<Canvas shadows flat linear>
+<Canvas
+  shadows
+  flat
+  linear
+  rendererParameters={{
+    precision: appState.graphics.precision,
+    antialias: appState.graphics.antiAliasing,
+    powerPreference: appState.graphics.powerPreference,
+  }}
+>
   <FogExp2 color={"papayawhip"} density={appState.controls.fogDensity} />
   <Three
     type={PerspectiveCamera}
@@ -82,7 +91,7 @@
             />
           {/if}
           {#if v.isEmpty}
-            {#if Math.random() > 0.75}
+            {#if Math.random() > 0.9}
               <Tree
                 position={[
                   x - 0.5,
@@ -90,6 +99,23 @@
                   y - 0.5,
                 ]}
               />
+
+              <!-- <GLTF
+                url="/models/low-poly_truck_car_drifter.glb"
+                interactive
+                scale={new Vector3(1 / 1000, 1 / 1000, 1 / 1000)}
+                on:pointerenter={() => {
+                  console.log("mouse over");
+                }}
+                on:click={() => {
+                  console.log("User clicked!");
+                }}
+                position={new Vector3(
+                  x - 0.5,
+                  appState.constants.positions.objectsFloor + 0.1,
+                  y - 0.5
+                )}
+              /> -->
             {/if}
           {/if}
         </Three>

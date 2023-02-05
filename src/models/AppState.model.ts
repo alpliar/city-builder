@@ -1,5 +1,6 @@
-import type { AmbientLightProps } from "svelte-cubed/components/lights/AmbientLight.svelte";
-import type { DirectionalLightProps } from "svelte-cubed/components/lights/DirectionalLight.svelte";
+import type { SceneGraphObjectProperties } from "@threlte/core";
+import type { AmbientLightProps } from "@threlte/core/dist/lights/AmbientLight.svelte";
+import type { DirectionalLightProps } from "@threlte/core/dist/lights/DirectionalLight.svelte";
 import type { Grid } from "./Grid.model";
 
 interface AmbientLightControls {
@@ -33,6 +34,13 @@ interface AppControls {
   directionalLight: DirectionalLightControls;
   fogDensity: number;
 }
+
+interface GraphicsSettings {
+  antiAliasing: boolean;
+  precision: "highp" | "mediump" | "lowp";
+  powerPreference: "high-performance" | "low-power" | "default";
+}
+
 export interface AppState {
   autoRotate: boolean;
   grid: Grid;
@@ -41,4 +49,5 @@ export interface AppState {
   controls: AppControls;
   dayNightCycle: boolean;
   constants: Constants;
+  graphics: GraphicsSettings;
 }

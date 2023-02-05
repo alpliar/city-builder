@@ -6,6 +6,7 @@
     ListgroupItem,
     SpeedDial,
     Toggle,
+    Select,
   } from "flowbite-svelte";
   import { onDestroy } from "svelte";
   import GoSettings from "svelte-icons/go/GoSettings.svelte";
@@ -13,8 +14,15 @@
 
   import type { AppState } from "../../models/AppState.model";
   import ControlsInput from "./ControlsInput.svelte";
+  import type { SelectOptionType } from "flowbite-svelte/types";
 
   let appState: AppState;
+
+  const graphicsPrecisionOptions: SelectOptionType[] = [
+    { value: "lowp", name: "Low" },
+    { value: "mediump", name: "Medium" },
+    { value: "highp", name: "High" },
+  ];
 
   const unsubscribe = appStore.subscribe((state) => {
     appState = state;
@@ -26,6 +34,28 @@
     appStore.update((state) => ({
       ...state,
       gameIsPaused: !state.gameIsPaused,
+    }));
+  };
+
+  const toggleAntiAliasing = (): void => {
+    appStore.update((state) => ({
+      ...state,
+      graphics: {
+        ...state.graphics,
+        antiAliasing: !state.graphics.antiAliasing,
+      },
+    }));
+  };
+
+  const setGraphicsPrecision = (
+    precision: AppState["graphics"]["precision"]
+  ): void => {
+    appStore.update((state) => ({
+      ...state,
+      graphics: {
+        ...state.graphics,
+        precision,
+      },
     }));
   };
 
@@ -116,6 +146,30 @@
       Controls
     </h3>
 
+    <h4>Graphics</h4>
+    <ListgroupItem class="flex space-x-2">
+      <Label defaultClass="flex">
+        <Toggle
+          on:change={toggleAntiAliasing}
+          checked={appState.graphics.antiAliasing}
+        />
+        Antialiasing {appState.graphics.antiAliasing ? "[ON]" : "[OFF]"}
+      </Label>
+    </ListgroupItem>
+
+    <ListgroupItem class="flex space-x-2">
+      <Label defaultClass="flex">
+        <Select
+          class="mt-2"
+          items={graphicsPrecisionOptions}
+          bind:value={appState.graphics.precision}
+        />
+
+        Precision
+      </Label>
+    </ListgroupItem>
+
+    <h4>Game</h4>
     <ListgroupItem class="flex space-x-2">
       <Label defaultClass="flex">
         <Toggle on:change={toggleDayNight} checked={appState.dayNightCycle} />

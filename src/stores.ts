@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
 import * as THREE from "three";
+import { Vector3 } from "three";
 import type { AppState } from "./models/AppState.model";
 import type { Construction, Grid, GridTile } from "./models/Grid.model";
 
@@ -52,6 +53,11 @@ export const appStore = writable<AppState>({
   gameIsPaused: false,
   gameHasStarted: false,
   dayNightCycle: false,
+  graphics: {
+    antiAliasing: true,
+    precision: "mediump",
+    powerPreference: "default",
+  },
   controls: {
     terrain: {
       size: terrainSize,
@@ -66,7 +72,7 @@ export const appStore = writable<AppState>({
     },
     directionalLight: {
       intensity: 1,
-      position: [5, 3, 2],
+      position: new Vector3(5, 3, 2),
     },
     fogDensity: 0.01,
   },
