@@ -56,14 +56,15 @@
     }));
   };
 
-  const setGraphicsPrecision = (
-    precision: AppState["graphics"]["precision"]
-  ): void => {
+  const setGraphicsPrecision = (event: Event): void => {
+    const input = event.target as HTMLInputElement;
+    const value = input.value as AppState["graphics"]["precision"];
+
     appStore.update((state) => ({
       ...state,
       graphics: {
         ...state.graphics,
-        precision,
+        precision: value,
       },
     }));
   };
@@ -178,9 +179,10 @@
           class="mt-2"
           items={graphicsPrecisionOptions}
           bind:value={appState.graphics.precision}
+          on:input={setGraphicsPrecision}
         />
 
-        Precision
+        Shaders Precision
       </Label>
     </ListgroupItem>
 
