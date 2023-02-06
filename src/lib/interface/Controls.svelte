@@ -1,20 +1,26 @@
 <script lang="ts">
   import {
+    Accordion,
+    AccordionItem,
     Input,
     Label,
     Listgroup,
-    ListgroupItem,
-    SpeedDial,
-    Toggle,
     Select,
+    SpeedDial,
+    SpeedDialButton,
+    Toggle,
   } from "flowbite-svelte";
-  import { onDestroy } from "svelte";
+  import { onDestroy, SvelteComponent } from "svelte";
   import GoSettings from "svelte-icons/go/GoSettings.svelte";
   import { appStore, generateGrid } from "../../stores";
 
-  import type { AppState } from "../../models/AppState.model";
-  import ControlsInput from "./ControlsInput.svelte";
   import type { SelectOptionType } from "flowbite-svelte/types";
+  import GiMountainCave from "svelte-icons/gi/GiMountainCave.svelte";
+  import GoDeviceCameraVideo from "svelte-icons/go/GoDeviceCameraVideo.svelte";
+  import { Md3DRotation } from "svelte-icons/md/";
+  import TiMediaPause from "svelte-icons/ti/TiMediaPause.svelte";
+  import WiDaySnowThunderstorm from "svelte-icons/wi/WiDaySnowThunderstorm.svelte";
+  import type { AppState } from "../../models/AppState.model";
 
   let appState: AppState;
 
@@ -59,7 +65,7 @@
   const setGraphicsPrecision = (event: Event): void => {
     const input = event.target as HTMLInputElement;
     const value = input.value as AppState["graphics"]["precision"];
-    
+
     appStore.update((state) => ({
       ...state,
       graphics: {
@@ -136,130 +142,206 @@
       },
     }));
   };
+
+  interface Control {
+    name: string;
+    type: "input" | "toggle" | "select";
+    onChange: (() => void) | ((e: Event) => void);
+    booleanValue?: boolean;
+    value?: number | string;
+    options?: SelectOptionType[];
+  }
+  interface ControlCategory {
+    name: string;
+    icon: ConstructorOfATypedSvelteComponent;
+    controls: Control[];
+  }
+
+  const controlCategories: ControlCategory[] = [
+    // {
+    //   name: "Camera",
+    //   icon: GoDeviceCameraVideo,
+    //   controls: [
+    //   ],
+    // },
+    // {
+    //   name: "Game",
+    //   icon: GiGamepad,
+    //   controls: [
+    //     {
+    //   ],
+    // },
+    {
+      name: "Graphics",
+      icon: GoDeviceCameraVideo,
+      controls: [
+        {
+          name: "Shadows",
+          type: "toggle",
+          onChange: toggleShadows,
+          booleanValue: appState.graphics.shadows,
+        },
+        {
+          name: "Antialiasing",
+          type: "toggle",
+          onChange: toggleAntiAliasing,
+          booleanValue: appState.graphics.antiAliasing,
+        },
+        {
+          name: "Shaders Precision",
+          type: "select",
+          onChange: setGraphicsPrecision,
+          value: appState.graphics.precision,
+          options: graphicsPrecisionOptions,
+        },
+      ],
+    },
+    {
+      name: "Terrain",
+      icon: GiMountainCave,
+      controls: [
+        {
+          name: "Size",
+          type: "input",
+          onChange: handleChangeTerrainSize,
+          value: appState.controls.terrain.size,
+        },
+        {
+          name: "Elevation",
+          type: "input",
+          onChange: handleChangeTerrainDisplacementScale,
+          value: appState.controls.terrain.displacementScale,
+        },
+        {
+          name: "Segments",
+          type: "input",
+          onChange: handleChangeTerrainSegments,
+          value: appState.controls.terrain.segments,
+        },
+      ],
+    },
+    {
+      name: "Conditions",
+      icon: WiDaySnowThunderstorm,
+      controls: [
+        {
+          name: "Day & Night cycle",
+          type: "toggle",
+          onChange: toggleDayNight,
+          booleanValue: appState.dayNightCycle,
+        },
+      ],
+    },
+  ];
 </script>
 
-<!-- <Card class="absolute left-0">
-    <ControlsInput attribute="width" label="Building width" />
-    <ControlsInput attribute="height" label="Building height" />
-    <ControlsInput attribute="depth" label="Building depth" />
-
-  </Card> -->
 <SpeedDial defaultClass="absolute right-6 bottom-6" pill={false} tooltip="none">
   <span slot="icon" class="w-8 h-8">
     <GoSettings fill="currentColor" aria-hidden="true" />
   </span>
-
   <Listgroup class="w-64" active>
     <h3
       class="text-center bg-blue-500 text-white font-bold text-xl rounded-t-lg py-2"
     >
       Controls
     </h3>
+    <Accordion>
+      {#each controlCategories as category}
+        <AccordionItem>
+          <span slot="header" class="flex gap-2 items-center">
+            <span class="w-4 h-4">
+              <svelte:component this={category.icon} />
+            </span>
+            <span> {category.name}</span>
+          </span>
+          <div class="grid gap-2">
+            {#each category.controls as control}
+              {#if control.type === "toggle"}
+                <Label class="flex">
+                  <Toggle
+                    size="small"
+                    on:change={control.onChange}
+                    checked={control.booleanValue}
+                  />
+                  {control.name}
+                  <!-- {control.value ? "[ON]" : "[OFF]"} -->
+                </Label>
+              {:else if control.type === "select"}
+                <Label defaultClass="flex">
+                  <Select
+                    underline
+                    size="sm"
+                    items={control.options}
+                    bind:value={control.value}
+                    on:change={control.onChange}
+                  />
+                  {control.name}
+                </Label>
+              {:else if control.type === "input"}
+                <Label defaultClass="flex items-center">
+                  <Input
+                    type="number"
+                    bind:value={control.value}
+                    on:input={control.onChange}
+                  />
+                  <span class="w-1/2">{control.name}</span>
+                </Label>
+              {/if}
+            {/each}
+          </div>
+        </AccordionItem>
+      {/each}
+    </Accordion>
+    <!-- <Accordion>
 
-    <h4>Graphics</h4>
-    <ListgroupItem class="flex space-x-2">
-      <Label defaultClass="flex">
-        <Toggle on:change={toggleShadows} checked={appState.graphics.shadows} />
-        Shadows {appState.graphics.shadows ? "[ON]" : "[OFF]"}
-      </Label>
-    </ListgroupItem>
-    <ListgroupItem class="flex space-x-2">
-      <Label defaultClass="flex">
-        <Toggle
-          on:change={toggleAntiAliasing}
-          checked={appState.graphics.antiAliasing}
+      <h4>Terrain</h4>
+      <AccordionItem class="flex space-x-2">
+        <h4>Lights</h4>
+        <ControlsInput
+          max={1}
+          label="Light intensity"
+          attribute="lightIntensity"
         />
-        Antialiasing {appState.graphics.antiAliasing ? "[ON]" : "[OFF]"}
-      </Label>
-    </ListgroupItem>
+      </AccordionItem>
 
-    <ListgroupItem class="flex space-x-2">
-      <Label defaultClass="flex">
-        <Select
-          class="mt-2"
-          items={graphicsPrecisionOptions}
-          bind:value={appState.graphics.precision}
-          on:change={setGraphicsPrecision}
+      <AccordionItem class="flex space-x-2">
+        <h4>Weather</h4>
+        <ControlsInput
+          min={0}
+          max={0.2}
+          step={0.01}
+          label={`Fog density`}
+          attribute="fogDensity"
         />
-
-        Shaders Precision
-      </Label>
-    </ListgroupItem>
-
-    <h4>Game</h4>
-    <ListgroupItem class="flex space-x-2">
-      <Label defaultClass="flex">
-        <Toggle on:change={toggleDayNight} checked={appState.dayNightCycle} />
-        Day and night {appState.dayNightCycle ? "[ON]" : "[OFF]"}
-      </Label>
-    </ListgroupItem>
-
-    <ListgroupItem class="flex space-x-2">
-      <Label defaultClass="flex">
-        <Toggle on:change={togglePlayPause} checked={appState.gameIsPaused} />
-        Pause {appState.gameIsPaused ? "[ON]" : "[OFF]"}
-      </Label>
-    </ListgroupItem>
-
-    <ListgroupItem class="flex space-x-2">
-      <Label defaultClass="flex">
-        <Toggle on:change={toggleAutoRotate} checked={appState.autoRotate} />
-        Auto Rotate {appState.autoRotate ? "[ON]" : "[OFF]"}
-      </Label>
-    </ListgroupItem>
-
-    <ListgroupItem class="flex space-x-2">
-      <ControlsInput
-        min={0}
-        max={0.2}
-        step={0.01}
-        label={`Fog density`}
-        attribute="fogDensity"
-      />
-    </ListgroupItem>
-
-    <h4>Terrain</h4>
-    <ListgroupItem class="flex space-x-2">
-      <Label defaultClass="flex items-center">
-        <Input
-          class="mr-2 w-1/3"
-          type="number"
-          bind:value={appState.controls.terrain.size}
-          on:input={handleChangeTerrainSize}
-        />
-        <span class="w-1/2">Size</span>
-      </Label>
-    </ListgroupItem>
-    <ListgroupItem class="flex space-x-2">
-      <Label defaultClass="flex items-center">
-        <Input
-          class="mr-2 w-1/3"
-          type="number"
-          bind:value={appState.controls.terrain.displacementScale}
-          on:input={handleChangeTerrainDisplacementScale}
-        />
-        Displacement scale
-      </Label>
-    </ListgroupItem>
-    <ListgroupItem class="flex space-x-2">
-      <Label defaultClass="flex items-center">
-        <Input
-          class="mr-2 w-1/3"
-          type="number"
-          bind:value={appState.controls.terrain.segments}
-          on:input={handleChangeTerrainSegments}
-        />
-        Segments
-      </Label>
-    </ListgroupItem>
-
-    <!-- <h4>Lights</h4>
-    <ListgroupItem class="flex space-x-2">
-      <ControlsInput
-        max={1}
-        label="Light intensity"
-        attribute="lightIntensity"
-      />
-    </ListgroupItem> -->
+      </AccordionItem>
+    </Accordion> -->
+  </Listgroup>
+  <Listgroup
+    style="background: transparent !important; border: none !important;"
+  >
+    <SpeedDialButton
+      tooltip="left"
+      name="Play / Pause"
+      on:click={togglePlayPause}
+      style={appState.gameIsPaused
+        ? `background-color: rgb(26, 86, 219, 1); color: white;`
+        : undefined}
+    >
+      <TiMediaPause fill="currentColor" aria-hidden="true" />
+    </SpeedDialButton>
+    <SpeedDialButton
+      tooltip="left"
+      name="Auto rotate"
+      on:click={toggleAutoRotate}
+      style={appState.autoRotate
+        ? `background-color: rgb(26, 86, 219, 1); color: white;`
+        : undefined}
+    >
+      {#if appState.autoRotate}
+        <Md3DRotation />
+      {:else}
+        <Md3DRotation fill="currentColor" aria-hidden="true" />
+      {/if}
+    </SpeedDialButton>
   </Listgroup>
 </SpeedDial>
