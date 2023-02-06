@@ -1,8 +1,9 @@
 import { writable } from "svelte/store";
 import * as THREE from "three";
-import { Vector3 } from "three";
+import { MathUtils, Vector3 } from "three";
 import type { AppState } from "./models/AppState.model";
 import type { Construction, Grid, GridTile } from "./models/Grid.model";
+// import * as Utils from "three/src/math/MathUtils";
 
 const smallBuilding: Construction = {
   color: new THREE.Color("springgreen"),
@@ -30,7 +31,8 @@ const tileWithConstruction = (construction): GridTile => {
   };
 };
 
-const terrainSize = 20;
+const terrainSize = MathUtils.randInt(9, 16);
+const terrainElevation = MathUtils.randInt(1, 6);
 
 // const grid: Grid = Array(terrainSize).fill(Array(terrainSize).fill(emptyTile));
 
@@ -62,7 +64,7 @@ export const appStore = writable<AppState>({
   controls: {
     terrain: {
       size: terrainSize,
-      displacementScale: 3,
+      displacementScale: terrainElevation,
       segments: 30,
     },
     depth: 1,
