@@ -1,4 +1,5 @@
 <script lang="ts">
+  import * as Threlte from "@threlte/core";
   import { Canvas, FogExp2, OrbitControls, Three } from "@threlte/core";
   import { onDestroy } from "svelte";
   import { spring } from "svelte/motion";
@@ -7,12 +8,14 @@
     DirectionalLight,
     Group,
     PerspectiveCamera,
+    Vector2,
     Vector3,
   } from "three";
   import { degToRad } from "three/src/math/MathUtils";
   import type { AppState } from "../../models/AppState.model";
   import { appStore } from "../../stores";
   import Controls from "../interface/Controls.svelte";
+  import Background from "./Background.svelte";
   import Building from "./Building.svelte";
   import Tile from "./surfaces/Tile.svelte";
   import Terrain from "./Terrain.svelte";
@@ -35,7 +38,9 @@
     powerPreference: appState.graphics.powerPreference,
   }}
 >
-  <FogExp2 color={"papayawhip"} density={appState.controls.fogDensity} />
+  <Background color="papayawhip" />
+
+  <!-- <FogExp2 color={"papayawhip"} density={appState.controls.fogDensity} /> -->
   <Three
     type={PerspectiveCamera}
     makeDefault
@@ -56,11 +61,16 @@
     />
   </Three>
 
-  <Three
-    type={DirectionalLight}
-    castShadow={appState.graphics.shadows}
-    position={[3, 10, 10]}
+  <Threlte.DirectionalLight
+    color="white"
+    intensity={1}
+    shadow={{
+      camera: { right: 50, top: 100, far: 100, near: 10 },
+      mapSize: [2048, 2048],
+    }}
+    position={{ x: 5, y: 10, z: 10 }}
   />
+
   <Three type={DirectionalLight} position={[-3, 10, -10]} intensity={0.2} />
   <Three
     type={AmbientLight}
