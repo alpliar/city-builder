@@ -7,6 +7,7 @@
     DirectionalLight,
     Group,
     PerspectiveCamera,
+    Vector3,
   } from "three";
   import { degToRad } from "three/src/math/MathUtils";
   import type { AppState } from "../../models/AppState.model";
@@ -95,60 +96,19 @@
             />
           {/if}
           {#if v.isEmpty}
-            {#if Math.random() > 0.9}
+            {#if Math.random() > 0.4}
               <Tree
-                position={[
-                  x - 0.5,
-                  appState.constants.positions.objectsFloor,
-                  y - 0.5,
-                ]}
-              />
-
-              <!-- <GLTF
-                url="/models/low-poly_truck_car_drifter.glb"
-                interactive
-                scale={new Vector3(1 / 1000, 1 / 1000, 1 / 1000)}
-                on:pointerenter={() => {
-                  console.log("mouse over");
-                }}
-                on:click={() => {
-                  console.log("User clicked!");
-                }}
                 position={new Vector3(
                   x - 0.5,
-                  appState.constants.positions.objectsFloor + 0.1,
+                  appState.constants.positions.objectsFloor,
                   y - 0.5
                 )}
-              /> -->
+              />
             {/if}
           {/if}
         </Three>
       {/each}
     {/each}
   </Three>
-
-  <!-- Cube -->
-  <!-- 
-    <Three type={Group} scale={$scale}>
-    <Three type={Mesh} position.y={0.5} castShadow={appState.graphics.shadows} let:ref>
-      
-      <InteractiveObject
-        object={ref}
-        interactive
-        on:pointerenter={() => ($scale = 2)}
-        on:pointerleave={() => ($scale = 1)}
-      />
-
-      <Three type={BoxGeometry} />
-      <Three type={MeshStandardMaterial} color="#333333" />
-    </Three>
-  </Three>
-   -->
-
-  <!-- Floor -->
-  <!--<Three type={Mesh} receiveShadow={appState.graphics.shadows} rotation.x={degToRad(-90)}>
-    <Three type={CircleGeometry} args={[3, 72]} />
-    <Three type={MeshStandardMaterial} color="white" />
-  </Three>-->
 </Canvas>
 <Controls />

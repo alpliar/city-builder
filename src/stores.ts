@@ -56,7 +56,7 @@ export const appStore = writable<AppState>({
   gameHasStarted: false,
   dayNightCycle: false,
   graphics: {
-    antiAliasing: false,
+    antiAliasing: true,
     precision: "highp",
     powerPreference: "default",
     shadows: true,
