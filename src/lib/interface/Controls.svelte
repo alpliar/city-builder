@@ -59,7 +59,7 @@
   const setGraphicsPrecision = (event: Event): void => {
     const input = event.target as HTMLInputElement;
     const value = input.value as AppState["graphics"]["precision"];
-
+    
     appStore.update((state) => ({
       ...state,
       graphics: {
@@ -179,7 +179,7 @@
           class="mt-2"
           items={graphicsPrecisionOptions}
           bind:value={appState.graphics.precision}
-          on:input={setGraphicsPrecision}
+          on:change={setGraphicsPrecision}
         />
 
         Shaders Precision

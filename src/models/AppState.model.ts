@@ -1,6 +1,7 @@
 import type { SceneGraphObjectProperties } from "@threlte/core";
 import type { AmbientLightProps } from "@threlte/core/dist/lights/AmbientLight.svelte";
 import type { DirectionalLightProps } from "@threlte/core/dist/lights/DirectionalLight.svelte";
+import type { WebGLRendererParameters } from "three";
 import type { Grid } from "./Grid.model";
 
 interface AmbientLightControls {
@@ -36,9 +37,9 @@ interface AppControls {
 }
 
 interface GraphicsSettings {
-  antiAliasing: boolean;
-  precision: "highp" | "mediump" | "lowp";
-  powerPreference: "high-performance" | "low-power" | "default";
+  antiAliasing: WebGLRendererParameters["antialias"];
+  precision: WebGLRendererParameters["precision"];
+  powerPreference: WebGLRendererParameters["powerPreference"];
   shadows: boolean;
 }
 
