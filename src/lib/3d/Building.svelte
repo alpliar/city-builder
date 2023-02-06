@@ -28,12 +28,7 @@
   geometry={new BoxGeometry(width, height, width)}
   material={new MeshPhysicalMaterial({
     color,
-    clearcoat: 1,
-    metalness: 1,
-    roughness: 1,
-    emissive: color,
     flatShading: true,
-    emissiveIntensity: 0.8,
   })}
   scale={[sizeRatio, 1, sizeRatio]}
   position={[position[0], height / 2, position[2]]}
