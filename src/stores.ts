@@ -23,13 +23,8 @@ const hugeBuilding: Construction = {
   width: 0.9,
   name: "Sky scrapper",
 };
-const emptyTile = { isEmpty: true, construction: null };
-const tileWithConstruction = (construction): GridTile => {
-  return {
-    isEmpty: false,
-    construction,
-  };
-};
+const emptyTile = { isEmpty: true };
+const nonEmptyTile = { isEmpty: false };
 
 const terrainSize = 10; // must be an even number
 const terrainElevation = MathUtils.randInt(1, 6);
@@ -40,7 +35,7 @@ export const generateGrid = (size: number): Grid => {
   return [...new Array(size)].map((_row) =>
     [...new Array(size)].map((_tile) => {
       const rando = Math.random();
-      if (rando > 0.99) return tileWithConstruction(hugeBuilding);
+      if (rando > 0.9) return nonEmptyTile;
       // if (rando > 0.9) return tileWithConstruction(mediumBuilding);
       // if (rando > 0.8) return tileWithConstruction(smallBuilding);
 

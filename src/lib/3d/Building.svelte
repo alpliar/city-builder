@@ -1,37 +1,42 @@
 <script lang="ts">
-  import { Three } from "@threlte/core";
+  import type { Position } from "@threlte/core";
+  import { GLTF } from "@threlte/extras";
   import { onDestroy } from "svelte";
-  import {
-    BoxGeometry,
-    Mesh,
-    MeshPhysicalMaterial,
-    type MeshStandardMaterialParameters,
-  } from "three";
+  import * as Three from "three";
+  import { getRandomItemFromArray } from "../../helpers/random.helper";
+
   import type { AppState } from "../../models/AppState.model";
   import { appStore } from "../../stores";
-
-  export let position;
-  export let color: MeshStandardMaterialParameters["color"];
-
   let appState: AppState;
+
   const unsubscribe = appStore.subscribe((state) => (appState = state));
   onDestroy(unsubscribe);
 
-  export let height = 1;
-  export let width = 1;
+  export let position: Position;
 
-  const sizeRatio = 0.9;
+  const buildings: string[] = [
+    "/models/House_1.glb",
+    "/models/House_2.glb",
+    "/models/House_3.glb",
+    "/models/House_4.glb",
+  ];
+  const rotationAngle: number[] = [0, 90, 180];
+  const rotation = new Three.Vector3(
+    0,
+    Three.MathUtils.DEG2RAD * getRandomItemFromArray(rotationAngle),
+    0
+  );
 </script>
 
-<Three
-  type={Mesh}
-  geometry={new BoxGeometry(width, height, width)}
-  material={new MeshPhysicalMaterial({
-    color,
-    flatShading: true,
-  })}
-  scale={[sizeRatio, 1, sizeRatio]}
-  position={[position[0], height / 2, position[2]]}
-  castShadow={appState.graphics.shadows}
+<GLTF
+  url={getRandomItemFromArray(buildings)}
+  {position}
+  {rotation}
   receiveShadow={appState.graphics.shadows}
+  castShadow={appState.graphics.shadows}
+  interactive
+  scale={1 / 10}
+  on:click={() => {
+    console.log("Building was clicked!");
+  }}
 />

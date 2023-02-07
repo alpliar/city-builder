@@ -10,7 +10,6 @@ export interface Construction {
 
 export interface GridTile {
   isEmpty: boolean;
-  construction?: Construction;
 }
 
 export type Grid = Array<Array<GridTile | null>>;

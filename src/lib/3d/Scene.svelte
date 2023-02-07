@@ -105,7 +105,7 @@
               y - 0.5,
             ]}
           />
-          {#if v.construction}
+          {#if !v.isEmpty}
             <Building
               position={new Three.Vector3(
                 x - 0.5,
