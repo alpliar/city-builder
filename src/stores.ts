@@ -31,7 +31,7 @@ const tileWithConstruction = (construction): GridTile => {
   };
 };
 
-const terrainSize = MathUtils.randInt(9, 16);
+const terrainSize = 10; // must be an even number
 const terrainElevation = MathUtils.randInt(1, 6);
 
 // const grid: Grid = Array(terrainSize).fill(Array(terrainSize).fill(emptyTile));
@@ -41,8 +41,8 @@ export const generateGrid = (size: number): Grid => {
     [...new Array(size)].map((_tile) => {
       const rando = Math.random();
       if (rando > 0.99) return tileWithConstruction(hugeBuilding);
-      if (rando > 0.9) return tileWithConstruction(mediumBuilding);
-      if (rando > 0.8) return tileWithConstruction(smallBuilding);
+      // if (rando > 0.9) return tileWithConstruction(mediumBuilding);
+      // if (rando > 0.8) return tileWithConstruction(smallBuilding);
 
       return emptyTile;
     })

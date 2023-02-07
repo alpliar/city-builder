@@ -150,7 +150,11 @@
     booleanValue?: boolean;
     value?: number | string;
     options?: SelectOptionType[];
+    max?: number;
+    min?: number;
+    step?: number;
   }
+
   interface ControlCategory {
     name: string;
     icon: ConstructorOfATypedSvelteComponent;
@@ -205,6 +209,9 @@
           type: "input",
           onChange: handleChangeTerrainSize,
           value: appState.controls.terrain.size,
+          min: 6,
+          max: 24,
+          step: 2,
         },
         {
           name: "Elevation",
@@ -283,6 +290,9 @@
                     type="number"
                     bind:value={control.value}
                     on:input={control.onChange}
+                    min={control.min}
+                    max={control.max}
+                    step={control.step}
                   />
                   <span class="w-1/2">{control.name}</span>
                 </Label>
