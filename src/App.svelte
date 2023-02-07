@@ -65,7 +65,7 @@
 {/if}
 
 <style>
-  :global(main) {
+  :global(body) {
     background-image: linear-gradient(to bottom, papayawhip, burlywood);
   }
 

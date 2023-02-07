@@ -1,16 +1,10 @@
 <script lang="ts">
   import * as Threlte from "@threlte/core";
-  import { Canvas, FogExp2, OrbitControls, Three } from "@threlte/core";
+  import { Canvas, OrbitControls } from "@threlte/core";
   import { onDestroy } from "svelte";
   import { spring } from "svelte/motion";
-  import {
-    AmbientLight,
-    DirectionalLight,
-    Group,
-    PerspectiveCamera,
-    Vector2,
-    Vector3,
-  } from "three";
+  import * as Three from "three";
+  import { Vector3 } from "three";
   import { degToRad } from "three/src/math/MathUtils";
   import type { AppState } from "../../models/AppState.model";
   import { appStore } from "../../stores";
@@ -38,13 +32,11 @@
     powerPreference: appState.graphics.powerPreference,
   }}
 >
-  <Background color="papayawhip" />
+  <Background color="DarkSlateGrey" />
 
   <!-- <FogExp2 color={"papayawhip"} density={appState.controls.fogDensity} /> -->
-  <Three
-    type={PerspectiveCamera}
-    makeDefault
-    position={[50, appState.controls.terrain.size * 2, 50]}
+  <Threlte.PerspectiveCamera
+    position={{ x: 50, y: appState.controls.terrain.size * 2, z: 50 }}
     fov={12}
   >
     <OrbitControls
@@ -59,32 +51,52 @@
       autoRotate={appState.autoRotate}
       maxDistance={50}
     />
-  </Three>
+  </Threlte.PerspectiveCamera>
 
   <Threlte.DirectionalLight
     color="white"
     intensity={1}
     shadow={{
-      camera: { right: 50, top: 100, far: 100, near: 10 },
+      camera: {
+        bottom: appState.controls.terrain.size / -2,
+        left: appState.controls.terrain.size / -2,
+        right: appState.controls.terrain.size / -2,
+        top: appState.controls.terrain.size / -2,
+        far: 1000,
+        near: 1,
+      },
       mapSize: [2048, 2048],
     }}
     position={{ x: 5, y: 10, z: 10 }}
   />
 
-  <Three type={DirectionalLight} position={[-3, 10, -10]} intensity={0.2} />
-  <Three
-    type={AmbientLight}
-    intensity={appState.controls.ambientLight.intensity}
+  <Threlte.Object3DInstance
+    object={new Three.CameraHelper(
+      new Three.OrthographicCamera(
+        appState.controls.terrain.size / -2,
+        appState.controls.terrain.size / 2,
+        appState.controls.terrain.size / 2,
+        appState.controls.terrain.size / -2,
+        1,
+        1000
+      )
+    )}
   />
+
+  <Threlte.DirectionalLight
+    position={{ x: -3, y: 10, z: -10 }}
+    intensity={0.2}
+  />
+  <Threlte.AmbientLight intensity={appState.controls.ambientLight.intensity} />
 
   <!-- Terrain -->
   <Terrain />
 
   <!-- Tiles -->
-  <Three type={Group}>
+  <Threlte.Group>
     {#each appState.grid as h, x}
       {#each h as v, y}
-        <Three type={Group}>
+        <Threlte.Group>
           <Tile
             isEmpty={v.isEmpty}
             position={[
@@ -95,14 +107,11 @@
           />
           {#if v.construction}
             <Building
-              width={v.construction.width}
-              height={v.construction.height}
-              color={v.construction.color}
-              position={[
+              position={new Three.Vector3(
                 x - 0.5,
                 appState.constants.positions.objectsFloor,
-                y - 0.5,
-              ]}
+                y - 0.5
+              )}
             />
           {/if}
           {#if v.isEmpty}
@@ -116,9 +125,9 @@
               />
             {/if}
           {/if}
-        </Three>
+        </Threlte.Group>
       {/each}
     {/each}
-  </Three>
+  </Threlte.Group>
 </Canvas>
 <Controls />
