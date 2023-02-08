@@ -27,4 +27,5 @@
   })}
   rotation={new Three.Vector3(MathUtils.DEG2RAD * 90, 0, 0)}
   {position}
+  receiveShadow={appState.graphics.shadows}
 />

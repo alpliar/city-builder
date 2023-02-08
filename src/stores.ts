@@ -203,7 +203,7 @@ export const appStore = writable<AppState>({
     height: 1,
     width: 1,
     ambientLight: {
-      intensity: 0.2,
+      intensity: 1,
     },
     directionalLight: {
       intensity: 1,
