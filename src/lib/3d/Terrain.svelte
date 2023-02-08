@@ -4,10 +4,8 @@
   import { onDestroy } from "svelte";
   import {
     Color,
-    FrontSide,
     Group,
     Mesh,
-    MeshPhongMaterial,
     MeshPhysicalMaterial,
     PlaneGeometry,
     TextureLoader,
@@ -56,9 +54,9 @@
       terrainSegments
     )}
     material={new MeshPhysicalMaterial({
-      color,
+      color: "black",
       flatShading: true,
-      bumpMap: heightMap,
+      // bumpMap: heightMap,
     })}
     rotation={[-Math.PI / 2, 0, 0]}
     position={[0, appState.constants.positions.floor, 0]}
@@ -66,8 +64,7 @@
   />
 
   <!-- TERRAIN ELEVATION -->
-  <T.Group>
-    <!-- Surface -->
+  <!-- <T.Group>
     <T.Mesh
       geometry={terrainGeometry}
       material={new MeshPhysicalMaterial({
@@ -85,7 +82,6 @@
       receiveShadow={appState.graphics.shadows}
       castShadow={appState.graphics.shadows}
     />
-    <!-- Grid -->
     <T.Mesh
       geometry={terrainGeometry}
       material={new MeshPhongMaterial({
@@ -99,7 +95,7 @@
       position={[0, (-1 * terrainDisplacementScale) / 2, 0]}
       receiveShadow={appState.graphics.shadows}
     />
-  </T.Group>
+  </T.Group> -->
 
   <!-- Grids -->
   <T.Group position.y={appState.constants.positions.objectsFloor}>

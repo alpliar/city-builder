@@ -15,25 +15,34 @@
   onDestroy(unsubscribe);
 
   export let position: Position;
+  export let isRightTurn: boolean = false;
+  export let isLeftTurn: boolean = false;
+  export let withCrossing: boolean = false;
+  let url: string;
 
-  const buildings: string[] = [
-    "/models/House_1.glb",
-    "/models/House_2.glb",
-    "/models/House_3.glb",
-    "/models/House_4.glb",
-  ];
+  enum Road {
+    Straight = "/models/Road_1.glb",
+    Turn = "/models/Road_turn.glb",
+    Crossing = "/models/Road_crossing.glb",
+  }
+
+  const getUrl = () => {
+    if (withCrossing) return Road.Crossing;
+    if (isRightTurn || isLeftTurn) return Road.Turn;
+    return Road.Straight;
+  };
 </script>
 
 <GLTF
   useDraco
-  url={getRandomItemFromArray(buildings)}
+  url={getUrl()}
   {position}
   rotation={new Vector3(0, MathUtils.DEG2RAD * rotation, 0)}
   receiveShadow={appState.graphics.shadows}
   castShadow={appState.graphics.shadows}
   interactive
-  scale={1 / 5}
+  scale={0.5}
   on:click={() => {
-    console.log("Building was clicked!");
+    console.log("Road was clicked!", getUrl());
   }}
 />

@@ -25,6 +25,7 @@
 </script>
 
 <GLTF
+  useDraco
   url={getRandomItemFromArray(trees)}
   {position}
   {rotation}

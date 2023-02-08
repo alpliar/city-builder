@@ -1,35 +1,172 @@
 import { writable } from "svelte/store";
-import * as THREE from "three";
 import { MathUtils, Vector3 } from "three";
 import type { AppState } from "./models/AppState.model";
-import type { Construction, Grid, GridTile } from "./models/Grid.model";
+import { ConstructionType, type Grid } from "./models/Grid.model";
 // import * as Utils from "three/src/math/MathUtils";
 
-const smallBuilding: Construction = {
-  color: new THREE.Color("springgreen"),
-  height: 0.5,
-  width: 0.5,
-  name: "small building",
-};
-const mediumBuilding = {
-  color: new THREE.Color("tomato"),
-  height: 1.5,
-  width: 0.75,
-  name: "medium building",
-};
-const hugeBuilding: Construction = {
-  color: new THREE.Color("rebeccapurple"),
-  height: 3,
-  width: 0.9,
-  name: "Sky scrapper",
-};
 const emptyTile = { isEmpty: true };
 const nonEmptyTile = { isEmpty: false };
 
-const terrainSize = 10; // must be an even number
-const terrainElevation = MathUtils.randInt(1, 6);
+const terrainSize = 6; // must be an even number
+const terrainElevation = 0; //MathUtils.randFloat(0.1, 0.5);
 
 // const grid: Grid = Array(terrainSize).fill(Array(terrainSize).fill(emptyTile));
+
+export const defaultGrid: Grid = [
+  [
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.HOUSE,
+      },
+    },
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.HOUSE,
+      },
+    },
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.HOUSE,
+      },
+    },
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.HOUSE,
+        rotation: -45,
+      },
+    },
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.ROAD,
+        rotation: 90,
+      },
+    },
+    {
+      isEmpty: true,
+    },
+  ],
+  [
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.ROAD,
+      },
+    },
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.ROAD,
+      },
+    },
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.ROAD,
+      },
+    },
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.ROAD,
+      },
+    },
+    {
+      isEmpty: false,
+      construction: {
+        type: ConstructionType.ROAD,
+        isRightTurn: true,
+      },
+    },
+    {
+      isEmpty: true,
+    },
+  ],
+  [
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+  ],
+  [
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+  ],
+  [
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+  ],
+  [
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+    {
+      isEmpty: true,
+    },
+  ],
+];
 
 export const generateGrid = (size: number): Grid => {
   return [...new Array(size)].map((_row) =>
@@ -46,7 +183,7 @@ export const generateGrid = (size: number): Grid => {
 
 export const appStore = writable<AppState>({
   autoRotate: false,
-  grid: generateGrid(terrainSize),
+  grid: defaultGrid, //generateGrid(terrainSize),
   gameIsPaused: false,
   gameHasStarted: false,
   dayNightCycle: false,
@@ -76,9 +213,9 @@ export const appStore = writable<AppState>({
   },
   constants: {
     positions: {
-      floor: 0.001,
-      tile: 0.001,
-      objectsFloor: 0.002,
+      floor: 0,
+      tile: 0.002,
+      objectsFloor: 0.003,
     },
   },
 });

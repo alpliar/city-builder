@@ -1,29 +1,30 @@
 <script lang="ts">
-  import { T, Three } from "@threlte/core";
+  import * as Threlte from "@threlte/core";
   import { onDestroy } from "svelte";
-  import { BoxGeometry, Mesh, MeshStandardMaterial } from "three";
+  import * as Three from "three";
+  import { MathUtils, Vector3 } from "three";
   import type { AppState } from "../../../models/AppState.model";
   import { appStore } from "../../../stores";
 
   export let isEmpty: boolean = true;
-  export let position;
+  export let position: Threlte.Position;
 
   let appState: AppState;
   const unsubscribe = appStore.subscribe((state) => (appState = state));
 
   onDestroy(unsubscribe);
-  const color = isEmpty ? "goldenrod" : "peru";
+  const color: Three.ColorRepresentation = new Three.Color(
+    isEmpty ? "forestgreen" : "#222"
+  );
 </script>
 
-<Three
-  type={Mesh}
-  geometry={new BoxGeometry(1, 1, appState.constants.positions.floor)}
-  material={new MeshStandardMaterial({
+<Threlte.Mesh
+  geometry={new Three.BoxGeometry(1, 1, appState.constants.positions.floor)}
+  material={new Three.MeshPhysicalMaterial({
     color,
-    flatShading: true,
-    opacity: 0.5,
-    transparent: true,
+    clearcoat: 1,
+    clearcoatRoughness: 1,
   })}
-  rotation={[-Math.PI / 2, 0, 0]}
+  rotation={new Three.Vector3(MathUtils.DEG2RAD * 90, 0, 0)}
   {position}
 />

@@ -7,10 +7,12 @@
   import { Vector3 } from "three";
   import { degToRad } from "three/src/math/MathUtils";
   import type { AppState } from "../../models/AppState.model";
+  import { ConstructionType } from "../../models/Grid.model";
   import { appStore } from "../../stores";
   import Controls from "../interface/Controls.svelte";
   import Background from "./Background.svelte";
   import Building from "./Building.svelte";
+  import Road from "./Road.svelte";
   import Tile from "./surfaces/Tile.svelte";
   import Terrain from "./Terrain.svelte";
   import Tree from "./Tree.svelte";
@@ -78,9 +80,10 @@
         appState.controls.terrain.size / 2,
         appState.controls.terrain.size / -2,
         1,
-        1000
+        500
       )
     )}
+    position={new Vector3(16, 0, 16)}
   />
 
   <Threlte.DirectionalLight
@@ -99,20 +102,36 @@
         <Threlte.Group>
           <Tile
             isEmpty={v.isEmpty}
-            position={[
+            position={new Three.Vector3(
               x - 0.5,
-              appState.constants.positions.objectsFloor,
-              y - 0.5,
-            ]}
+              appState.constants.positions.tile,
+              y - 0.5
+            )}
           />
-          {#if !v.isEmpty}
-            <Building
-              position={new Three.Vector3(
-                x - 0.5,
-                appState.constants.positions.objectsFloor,
-                y - 0.5
-              )}
-            />
+          {#if v.construction}
+            {#if v.construction.type === ConstructionType.HOUSE}
+              <Building
+                position={new Three.Vector3(
+                  x - 0.5,
+                  appState.constants.positions.objectsFloor,
+                  y - 0.5
+                )}
+                rotation={v.construction.rotation}
+              />
+            {/if}
+            {#if v.construction.type === ConstructionType.ROAD}
+              <Road
+                position={new Three.Vector3(
+                  x - 0.5,
+                  appState.constants.positions.objectsFloor,
+                  y - 0.5
+                )}
+                rotation={v.construction.rotation}
+                isRightTurn={v.construction.isRightTurn}
+                isLeftTurn={v.construction.isLeftTurn}
+                withCrossing={v.construction.withCrossing}
+              />
+            {/if}
           {/if}
           {#if v.isEmpty}
             {#if Math.random() > 0.4}
